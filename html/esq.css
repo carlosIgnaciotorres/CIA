@@ -1,0 +1,46 @@
+
+body {
+  font-family:  "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  font-size: 1rem;
+}
+
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #e0e0e0;
+  }
+
+.sidebar {
+  position: fixed;
+  width: 20%;
+  height: 100vh;
+  background:  #007bff;  
+}
+
+header {
+  width: 100%;
+  height: 30vh;
+  background: #007bff;
+  
+}
+ 
+.logo {
+	float: left;
+  padding: 20px;
+  margin-left: 200px;
+  margin-top: 20px;	
+}
+  
+.login {
+  float: left;  
+  margin-top: 80px;	
+  color: white;
+}
+.plogin {
+  float: left;
+  color: white;
+  margin-right: 150px;
+ 
+  
+}
