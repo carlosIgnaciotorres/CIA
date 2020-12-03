@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<HTML lang='es'>
+<head>
+<meta chartset='UFT-8'>
+<title>Registrar Producto</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+    <div style='border:solid red 0px; width:100%; height:800px;'>
+        <div style='border:solid blue 0px; width:19.9%; float: left;'>            
+        </div>
+        <div style='border:solid rgb(234, 0, 255) 0px; width:79.9%; float: right;'>
+         <div style='border:solid yellow 0px; height:29.9%'>
+            <div class="row">
+                <div class="BarraSup" style="width:100%">
+                  <div class="input-group mb-4 border rounded-pill p-1 float-right" style="width:50%" >
+                    <div class="input-group-prepend border-0">
+                      <button id="button-addon4" type="button" class="btn btn-link text-info"><i class="fa fa-search"></i></button>
+                    </div>
+                    <input type="search" placeholder="Buscar..." aria-describedby="button-addon4" class="form-control bg-none border-0">
+                  </div>
+                </div>
+              </div>
+
+         </div>
+         <div style='border:solid green 0px; height:69.9%;'>
+            <div style='border:solid blue 0px; width:30%; float:left'> 
+            </div>
+            <div style='border:solid blue 0px; width:69.9%;'> 
+            <form class="formulario" enctype="multipart/form-data">
+             
+                <!-- Form Name -->
+                <div class="form-group">
+                    <div class="col-md-8">
+                        <div>Registro Producto</div>
+                    </div>
+                </div>
+                <!-- Text input-->
+                <div class="form-group">
+                  <div class="col-md-6">
+                  <input id="nombreProd" name="nombreProd" type="text" placeholder="Nombre Producto" class="form-control input-md" required="">
+                    
+                  </div>
+                </div>
+                
+                <!-- Text input-->
+                <div class="form-group">
+                  <div class="col-md-6">
+                  <input id="refProd" name="refProd" type="text" placeholder="Referencia Producto" class="form-control input-md" required="">
+                    
+                  </div>
+                </div>
+                
+                <!-- Num input-->
+                <div class="form-group">
+                  <div class="col-md-6">
+                  <input id="cantidad" name="cantidad" type="number" placeholder="Cantidad" class="form-control input-md" required="">
+                    
+                  </div>
+                </div>
+                
+            
+                <div class="form-group">
+                    <div class="col-md-8">
+                     <div>Adjunte imagen del producto</div>
+                    </div>
+                </div>
+                <!-- Button adjuntar-->
+                <div class="form-group">
+                  <div class="col-md-6">
+                    <input type="file" name="adjuntar" class="btn btn-primary btn-sm">
+                  </div>
+                </div>
+                
+                <!-- Button registrar-->
+                <div class="form-group">
+                    <div class="col-md-8">
+                        <button id="crear()" name="crear()" class="btn btn-success">Registrar</button>
+                    </div>
+                  </div>
+                </form>
+            </div>
+                
+         </div>
+        </div>
+       </div>
+</body>
+</HTML>
