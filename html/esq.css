@@ -4,7 +4,6 @@ body {
   font-size: 1rem;
 }
 
-
 body {
     margin: 0;
     padding: 0;
@@ -41,6 +40,14 @@ header {
   float: left;
   color: white;
   margin-right: 150px;
- 
+}
+
+.icono1{
+
+  margin-top: 80px;
+}
+
+.form1{
+  border-radius: 20px;
   
 }
