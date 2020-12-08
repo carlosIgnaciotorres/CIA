@@ -1,0 +1,86 @@
+
+body {
+  font-family:  "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  font-size: 1rem;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #e0e0e0;
+  }
+
+header {
+  width: 100%;
+  height: 30vh;
+  background: #007bff;
+  
+}
+ 
+.logo {
+	float: left;
+  padding: 20px;
+  margin-left: 200px;
+  margin-top: 20px;	
+}
+  
+.login {
+  float: left;  
+  margin-top: 80px;	
+  color: white;
+}
+.plogin {
+  float: left;
+  color: white;
+  margin-right: 150px;
+}
+
+.icono1{
+
+  margin-top: 80px;
+}
+
+.form1{
+  border-radius: 20px;
+  
+}
+
+/* Style the side navigation */
+.sidenav {
+  height: 100%;
+  width: 300px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #007bff;
+  overflow-x: hidden;
+}
+
+/* Side navigation links */
+.sidenav a {
+  color: white;
+  padding: 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color on hover */
+.sidenav a:hover {
+  background-color: #ddd;
+  color: #007bff;
+}
+
+/* Style the content */
+.content {
+  margin-left:450px;
+  padding-left: 10px;
+  margin-top: 50px;
+  float:left;
+}
+
+.content1 {
+  float: right;
+  margin-top: 30px;
+  
+}
