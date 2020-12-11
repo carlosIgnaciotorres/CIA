@@ -1,30 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>Tienda Cia</title> 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/esq.css') }}">    
+ 
 </head>
 <body>
-    <div class="container">
-      <div class="card" style="width:35%">
-        <!-- Acá debe referirse a la carpeta static-->
-        <img class="card-img-top" src="{{ url_for('static',filename='img/imagen7.jpeg') }}" alt="Card image" style="width:100%">
-        <div class="card-body">
-          <!-- Inicia con h4 y cierra con h2-->
-          <h4 class="card-title">Accesorio 1</h2>
-          <p class="card-text"> Ref: HDSJKFH</p>
-          <p class="card-text">Cantidad <input class="form-control" id="username" name="username" required="" type="text" value="50"></p>
-          <a href="#" class="btn btn-primary">Editar</a>
-          <a href="#" class="btn btn-danger">Borrar</a>
-            
+
+  <aside class="sidenav">
+    <h3 class="ml-5 mt-5 text-white">Administrador</h3>
+    <p class="ml-5 text-white">Pepito Perez</p>
+    <i class="ml-5 mt-5 material-icons" style="font-size:200px;color:white">group</i>
+
+    <ul class="list-group">
+      <li class="list-group-item bg-primary"><a href="/rusuario" class="ml-2">Registrar Usuario</a></li>
+      <li class="list-group-item bg-primary"><a href="/actusuario" class="ml-2">Actualizar Usuario</a></li>
+      <li class="list-group-item bg-primary"><a href="/rproducto" class="ml-2">Registrar Producto</a></li>
+      <li class="list-group-item bg-primary"><a href="/" class="ml-2">Cerrar Sesión</a></li>      
+    </ul>  
+  </aside>
+  
+
+  <div class="content">
+    <a><img src="{{ url_for('static',filename='img/logocia.png') }}" alt="logo-cia-tecnologia" width="15%"></a>   
+  
+  <div class="content1"><h1 class="">Cia - Control de Inventario de Accesorios</h1>  
+    <p class="">Calle 50 N # 20-20 Bogotá - Colombia</p>  
+  </div>
+
+  <div class="row">
+    <div class="BarraSup" style="width:100%">
+      <div class="input-group mb-4 border rounded-pill p-1 float-right" style="width:50%" >
+        <div class="input-group-prepend border-0">
+          <button id="button-addon4" type="button" class="btn btn-link text-info"><i class="fa fa-search"></i></button>
         </div>
+        <input type="search" placeholder="Buscar..." aria-describedby="button-addon4" class="form-control bg-none border-0">
       </div>
     </div>
+  </div>
+
+  <hr>
+
+  <div class="card" style="width:35%">
+    <!-- Acá debe referirse a la carpeta static-->
+    <img class="card-img-top" src="{{ url_for('static',filename='img/imagen7.jpeg') }}" alt="Card image" style="width:100%">
+    <div class="card-body">
+      <!-- Inicia con h4 y cierra con h2-->
+      <h4 class="card-title">Accesorio 1</h2>
+      <p class="card-text"> Ref: HDSJKFH</p>
+      <p class="card-text">Cantidad <input class="form-control" id="username" name="username" required="" type="text" value="50"></p>
+      <a href="#" class="btn btn-primary">Editar</a>
+      <a href="#" class="btn btn-danger">Borrar</a>
+      <a href="#" class="btn btn-success">Cerrar</a>
+        
+    </div>
+
+
+
+
+
+
+  </div>
+
 </body>
 </html>

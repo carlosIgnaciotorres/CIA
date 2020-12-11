@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>Tienda Cia</title> 
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/esq.css') }}">
+</head>
+
+<body>  
+<header>       
+    <div class="logo">          
+        <a><img src="{{ url_for('static',filename='img/logocia.png') }}" alt="logo-cia-tecnologia" width="60%" height="60%"></a>                
+    </div>
+    <div><h1 class="login">Cia - Control de Inventario de Accesorios</h1></div>
+    <div><p class="plogin">Calle 50 N # 20-20 Bogotá - Colombia</p></div>
+</header>           
+
+<section class="page-section p-5">
+<div class="container-fluid "  >
+   <div class="row">
+     <div class=" col-lg-6 col-md-6 text-center icono1">            
+        <i class="material-icons" style="font-size:200px;color:black">group</i>
+     </div>   
+    
+    <div class="col-lg-4 col-md-6 bg-light p-5 form1">            
+        <form>
+            <p class="text-muted mb-4">Recuperar usuario</p>
+            <div class="form-group mb-3">
+                <input id="usuario" type="usuario" placeholder="Ingrese su contraseña" required="" autofocus="" class="form-control rounded-pill border-0 shadow-sm px-4">
+            </div>
+                <button type="submit" class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">enviar</button>                
+        </form>
+    </div>
+    </div>
+</div>
+</section>
+
+<footer class="container-fluid p-4"  >
+    <div class="row justify-content-md-between align-items-center">
+    <div class="col-lg-12 text-center  ">   
+      <span class="text-secondary">Copyright © 2020 - Todos los derechos reservados</span> 
+    </div>
+    </div>
+  </footer>
+                     
+</body>
+</html>
