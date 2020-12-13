@@ -5,34 +5,34 @@
   <div class="container "  >
       <div class="row d-flex justify-content-center">
         <div class="col-md-6 bg-white p-5 form1">    
-            <form class="formulario" enctype="multipart/form-data">             
+            <form class="formulario" enctype="multipart/form-data" method='POST'>             
               
               <div class="form-group">
-                  <div class="mb-4 " >
+                  <div class="mb-4" >
                       <h4>Registro Producto</h4>
                   </div>
               </div>
             
               <div class="form-group">
-                <div class="form-control input-md">
+                <div class="">
                 <!-- <input id="nombreProd" name="nombreProd" type="text" placeholder="Nombre Producto" class="form-control input-md" required=""> -->
-                  {{ form.nomPro(size=40) }}
+                  {{ form.nomPro(class="form-control input-md",placeholder="Nombre Producto") }}
                 </div>
               </div>
               
               
               <div class="form-group">
-                <div class="form-control input-md">
+                <div class="">
                 <!-- <input id="refProd" name="refProd" type="text" placeholder="Referencia Producto" class="form-control input-md" required=""> -->
-                  {{ form.refPro(size=40) }}
+                  {{ form.refPro(class="form-control input-md",placeholder="Referencia Producto") }}
                 </div>
               </div>
               
             
               <div class="form-group">
-                <div class="form-control input-md">
+                <div class="">
                 <!-- <input id="cantidad" name="cantidad" type="number" placeholder="Cantidad" class="form-control input-md" required=""> -->
-                  {{ form.canPro() }}
+                  {{ form.canPro(class="form-control input-md",placeholder="Cantidad",type="number") }}
                 </div>
               </div>
               
@@ -44,20 +44,29 @@
               </div>
               
               <div class="form-group">
-                <div class="btn btn-primary btn-sm">
+                <div class="">
                   <!-- <input type="file" name="adjuntar" class="btn btn-primary btn-sm"> -->
-                  {{ form.imPro() }}
+                  {{ form.imPro(class="btn btn-primary btn-sm", type="file") }}
                 </div>
               </div>
               
             
               <div class="form-group">
-                  <div class="btn btn-success">
+                  <div class="">
                       <!-- <button id="crear()" name="crear()" class="btn btn-success">Registrar</button> -->
-                      {{ form.registrar() }}
+                      {{ form.registrar(class="btn btn-success") }}
                   </div>
                 </div>
               </form>
+              {% for message in get_flashed_messages() %} 
+              <div class="flash">
+              {{ message }}
+                  <button type="button"
+                   data-dismiss="alert"
+                  class="close">&times;</button>
+               </div>
+              {% endfor %} 
+
             </div>
           </div>
       </div>

@@ -1,8 +1,10 @@
 
 import os
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, flash
 from markupsafe import escape
 from clases import producto
+import conexion
+
 
 
 app = Flask(__name__)
@@ -26,8 +28,36 @@ def add_password():
 
 @app.route('/rproducto', methods=['GET', 'POST'])
 def reg_producto():
-    inst = producto()  # Una instancia del formulario 
-    return render_template('registroproducto.html',form=inst)
+    try:
+        if request.method=='GET':
+            inst = producto()  # Una instancia del formulario 
+            return render_template('registroproducto.html',form=inst)
+        else:
+            nomP = escape(request.form['nomPro'])
+            refP = escape(request.form['refPro'])
+            canP = escape(request.form['canPro'])
+            # imP = escape(request.form['imPro'])
+            imP="imagen1.jpg"
+            familia=1
+            estado='A'
+            #FALTA SUBIR LA IMAGEN AL DRIVE Y SACAR LA RUTA
+            if int(canP)>=0:
+                query = "INSERT INTO producto(nombre, referencia, cantidad, imagen, familia, estado) VALUES(?, ?, ?, ?, ?, ?)"
+                res = conexion.ejecutar_consulta_acc(query,(nomP, refP, canP, imP, familia, estado))
+                if res!=None:
+                    #VACIAR CAMPOS
+                    sal = 'Datos registrados con éxito'
+                else:
+                    sal = 'Error al registrar los datos'
+            else:
+                sal="Cantidad invalida"
+            flash(sal)
+            inst = producto()  # Una instancia del formulario 
+            return render_template('registroproducto.html',form=inst)
+    except:
+        pass
+
+
 
 @app.route('/rusuario', methods=["GET", "POST"])
 def reg_usuario():
