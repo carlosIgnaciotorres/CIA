@@ -7,7 +7,7 @@
         <div class="col-md-6 bg-white p-5 form1">  
           <form >       
               <div class="mb-4 ml-3">
-              <h4>Registro Usuario</h4>
+              <h4>Actualización de Usuario</h4>
               </div>
               <div >            
                 <div class="">
@@ -91,35 +91,4 @@
       </div>
     </div>
   </section>
-
-  <div class="container">
-    <div class="row d-flex justify-content-center">
-        <div class="col-md-7">
-            <table class='table table-striped table-bordered bg-white table-sm'> 
-                <thead>
-                    <tr>
-                        <td>Nombre</td>
-                        <td>Telefono</td>
-                        <td>Correo</td>
-                        <td>Operaciones</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for contacto in contactos %}
-                        <tr>
-                            <td>{{ contacto.1 }}</td>
-                            <td>{{ contacto.2 }}</td>
-                            <td>{{ contacto.3 }}</td>
-                            <td>
-                                <a href="/edit/{{contacto.0}}" class="btn btn-secondary">Editar</a>
-                                <a href="/delete/{{contacto.0}}" class="btn btn-danger btn-eliminar">Eliminar</a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-    </di>
-    </div>
 {% endblock %}
