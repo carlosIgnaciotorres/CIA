@@ -51,9 +51,8 @@ def add_password():
                 flash('La contraseña no es valida')
         inst = contrasena()  # Una instancia del formulario 
         return render_template('password.html',form=inst)
-
-   except:
-       pass
+    except:
+        pass
 
 @app.route('/rproducto', methods=['GET', 'POST'])
 def reg_producto():
