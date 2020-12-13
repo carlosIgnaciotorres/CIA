@@ -15,23 +15,21 @@
             
               <div class="form-group">
                 <div class="">
-                <!-- <input id="nombreProd" name="nombreProd" type="text" placeholder="Nombre Producto" class="form-control input-md" required=""> -->
-                  {{ form.nomPro(class="form-control input-md",placeholder="Nombre Producto") }}
+
+                  {{ form.nomPro(class="form-control input-md",placeholder="Nombre Producto",size=32) }}
                 </div>
               </div>
               
               
               <div class="form-group">
                 <div class="">
-                <!-- <input id="refProd" name="refProd" type="text" placeholder="Referencia Producto" class="form-control input-md" required=""> -->
-                  {{ form.refPro(class="form-control input-md",placeholder="Referencia Producto") }}
+                  {{ form.refPro(class="form-control input-md",placeholder="Referencia Producto",size=32) }}
                 </div>
               </div>
               
             
               <div class="form-group">
                 <div class="">
-                <!-- <input id="cantidad" name="cantidad" type="number" placeholder="Cantidad" class="form-control input-md" required=""> -->
                   {{ form.canPro(class="form-control input-md",placeholder="Cantidad",type="number") }}
                 </div>
               </div>
@@ -45,7 +43,6 @@
               
               <div class="form-group">
                 <div class="">
-                  <!-- <input type="file" name="adjuntar" class="btn btn-primary btn-sm"> -->
                   {{ form.imPro(class="btn btn-primary btn-sm", type="file") }}
                 </div>
               </div>
@@ -53,7 +50,6 @@
             
               <div class="form-group">
                   <div class="">
-                      <!-- <button id="crear()" name="crear()" class="btn btn-success">Registrar</button> -->
                       {{ form.registrar(class="btn btn-success") }}
                   </div>
                 </div>
