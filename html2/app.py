@@ -26,7 +26,7 @@ def agregar_vistaadm():
 
 @app.route('/password', methods=['GET', 'POST'])
 def add_password():
-    #try:
+    try:
         if request.method=='POST':
             pws = escape(request.form['pws'])
             conf = escape(request.form['confirmacion'])
@@ -51,8 +51,8 @@ def add_password():
                 flash('La contraseña no es valida')
         inst = contrasena()  # Una instancia del formulario 
         return render_template('password.html',form=inst)
-    #except:
-     #   pass
+    except:
+        pass
 
 @app.route('/rproducto', methods=['GET', 'POST'])
 def reg_producto():
