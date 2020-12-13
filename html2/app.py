@@ -1,10 +1,12 @@
 
-
+import os
 from flask import Flask, render_template, request
 from markupsafe import escape
+from clases import producto
 
 
 app = Flask(__name__)
+app.secret_key = os.urandom(24)
 
 @app.route('/', methods=['GET', 'POST'])
 def Index():    
@@ -24,7 +26,8 @@ def add_password():
 
 @app.route('/rproducto', methods=['GET', 'POST'])
 def reg_producto():
-    return render_template('registroproducto.html')
+    inst = producto()  # Una instancia del formulario 
+    return render_template('registroproducto.html',form=inst)
 
 @app.route('/rusuario', methods=["GET", "POST"])
 def reg_usuario():

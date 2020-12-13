@@ -14,25 +14,25 @@
               </div>
             
               <div class="form-group">
-                <div class="">
-                <input id="nombreProd" name="nombreProd" type="text" placeholder="Nombre Producto" class="form-control input-md" required="">
-                  
+                <div class="form-control input-md">
+                <!-- <input id="nombreProd" name="nombreProd" type="text" placeholder="Nombre Producto" class="form-control input-md" required=""> -->
+                  {{ form.nomPro(size=40) }}
                 </div>
               </div>
               
               
               <div class="form-group">
-                <div class="">
-                <input id="refProd" name="refProd" type="text" placeholder="Referencia Producto" class="form-control input-md" required="">
-                  
+                <div class="form-control input-md">
+                <!-- <input id="refProd" name="refProd" type="text" placeholder="Referencia Producto" class="form-control input-md" required=""> -->
+                  {{ form.refPro(size=40) }}
                 </div>
               </div>
               
             
               <div class="form-group">
-                <div class="">
-                <input id="cantidad" name="cantidad" type="number" placeholder="Cantidad" class="form-control input-md" required="">
-                  
+                <div class="form-control input-md">
+                <!-- <input id="cantidad" name="cantidad" type="number" placeholder="Cantidad" class="form-control input-md" required=""> -->
+                  {{ form.canPro() }}
                 </div>
               </div>
               
@@ -44,15 +44,17 @@
               </div>
               
               <div class="form-group">
-                <div class="">
-                  <input type="file" name="adjuntar" class="btn btn-primary btn-sm">
+                <div class="btn btn-primary btn-sm">
+                  <!-- <input type="file" name="adjuntar" class="btn btn-primary btn-sm"> -->
+                  {{ form.imPro() }}
                 </div>
               </div>
               
             
               <div class="form-group">
-                  <div class="">
-                      <button id="crear()" name="crear()" class="btn btn-success">Registrar</button>
+                  <div class="btn btn-success">
+                      <!-- <button id="crear()" name="crear()" class="btn btn-success">Registrar</button> -->
+                      {{ form.registrar() }}
                   </div>
                 </div>
               </form>
