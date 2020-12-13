@@ -1,9 +1,11 @@
-
+import hashlib
 import os
 from flask import Flask, render_template, request, flash
 from markupsafe import escape
-from clases import producto
+from clases import producto, contrasena
 import conexion
+import utils as UT
+
 
 
 
@@ -24,7 +26,34 @@ def agregar_vistaadm():
 
 @app.route('/password', methods=['GET', 'POST'])
 def add_password():
-    return render_template('password.html')
+    try:
+        if request.method=='POST':
+            pws = escape(request.form['pws'])
+            conf = escape(request.form['confirmacion'])
+            if UT.isPasswordValid(pws):
+                if UT.isPasswordValid(conf):
+                    if pws==conf:
+                        rpt = hashlib.md5(pws.encode())
+                        pwd = rpt.hexdigest()
+                        estado="A"
+                        iduser=1
+                        query= "UPDATE usuario set clave = ? , estado = ? WHERE id = ?"
+                        res = conexion.ejecutar_consulta_acc(query,(pwd, estado , iduser))
+                        if res!=None:
+                            flash('Datos registrados con éxito')
+                        else:   #else res
+                            flash('Error al registrar los datos')
+                    else: #diferente pws y conf
+                        flash('La contraseña y su verificacion no coinciden')
+                else: #la verificacion no reune las caracteristicas
+                    flash('La confirmacion no es correcta')
+            else: #la contraseña no reune las caracteristicas
+                flash('La contraseña no es valida')
+        inst = contrasena()  # Una instancia del formulario 
+        return render_template('password.html',form=inst)
+
+   except:
+       pass
 
 @app.route('/rproducto', methods=['GET', 'POST'])
 def reg_producto():
