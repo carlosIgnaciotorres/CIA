@@ -1,7 +1,7 @@
 import re
 from validate_email import validate_email
 
-pass_reguex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^\W_]{8,}$"
+pass_reguex = "^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$"
 user_reguex = "^[a-zA-Z0-9_.-]+$"
 F_ACTIVE = 'ACTIVE'
 F_INACTIVE = 'INACTIVE'
@@ -14,7 +14,6 @@ U_CONFIRMED = 'CONFIRMED'
 
 def isEmailValid(email):
     is_valid = validate_email(email)
-
     return is_valid
 
 
