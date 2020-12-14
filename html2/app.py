@@ -47,8 +47,8 @@ def add_password():
                     flash('La confirmacion no es correcta')
             else: #la contraseña no reune las caracteristicas
                 flash('La contraseña no es valida')
-        #inst = contrasena()  # Una instancia del formulario 
-        return redirect(url_for('add_password'))
+        inst = contrasena()  # Una instancia del formulario 
+        return render_template('password.html',form=inst)
     except:
         pass
 
