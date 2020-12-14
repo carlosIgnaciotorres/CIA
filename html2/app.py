@@ -121,7 +121,36 @@ def reg_producto():
     except:
         pass
 
-
+@app.route('/actproducto', methods=["GET", "POST"])
+def act_producto():
+    try:
+        if request.method=='GET':
+            inst = producto() 
+            return render_template('actualizarproducto.html',form=inst)
+        else:
+            nomP = escape(request.form['nomPro'])
+            refP = escape(request.form['refPro'])
+            canP = escape(request.form['canPro'])
+            # imP = escape(request.form['imPro'])
+            imP="imagen1.jpg"
+            familia=1
+            estado='A'
+            idpro = 11 
+            #FALTA SUBIR LA IMAGEN AL DRIVE Y SACAR LA RUTA
+            if int(canP)>=0:
+                query= "UPDATE producto set nombre = ? , referencia = ? , cantidad = ? , imagen = ? , familia = ? , estado = ? WHERE id = ?"
+                res = conexion.ejecutar_consulta_acc(query,(nomP, refP, canP, imP, familia, estado, idpro))
+                if res!=None:
+                    sal = 'Actualización exitosa'
+                else:
+                    sal = 'Error al actualizar los datos'
+            else:
+                sal="Cantidad invalida"
+            flash(sal)
+            inst = producto()  # Una instancia del formulario 
+            return redirect(url_for('act_producto'))
+    except:
+        pass
 
 @app.route('/rusuario', methods=["GET", "POST"])
 def reg_usuario():

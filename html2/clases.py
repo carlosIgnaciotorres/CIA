@@ -8,6 +8,7 @@ class producto(FlaskForm):
     canPro = IntegerField('Cantidad producto *',validators=[DataRequired(message='Cantidad es requerido, no lo deje en blanco')])
     imPro = FileField()
     registrar = SubmitField('Registrar')
+    actualizar = SubmitField('Actualizar')
 
 
 class contrasena(FlaskForm):
