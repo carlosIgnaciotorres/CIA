@@ -5,13 +5,30 @@
   <div class="container "  >
       <div class="row d-flex justify-content-center">
         <div class="col-md-6 bg-white p-5 form1">  
-          <form >       
-              <div class="mb-4 ml-3">
-              <h4>Registro Usuario</h4>
+          {% with messages = get_flashed_messages() %}
+          {% if messages %}
+          {% for message in messages %}    
+              <div class="alert alert-primary alert-dismissible fade show text-center" role="alert">
+                  {{ message }}
+                  <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
               </div>
-              <div >            
+          {% endfor %}
+          {% endif %}
+          {% endwith %}
+
+
+          <form class="formulario" enctype="multipart/form-data" method='POST'>    
+
+              <div class="mb-4 ml-3 text-center">
+                <h4>Registro Usuario</h4>
+              </div>
+
+              
+              <div class="form-group">            
                 <div class="">
-                <input id="nombre" name="nombre" type="text" placeholder="Nombres" class="form-control input-md" required="">
+                  {{ form.nombre(class="form-control input-md",placeholder="Nombres",size=32) }}
                 </div>
               </div>
               
@@ -19,25 +36,16 @@
               <div class="form-group">
                 <br>
                 <div class="">
-                <input id="apellido" name="apellido" type="text" placeholder="Apellidos" class="form-control input-md" required="">
-                  
+                <!--<input id="apellido" name="apellido" type="text" placeholder="Apellidos" class="form-control input-md" required=""> -->
+                {{ form.apellido(class="form-control input-md",placeholder="Apellidos",size=32) }}
                 </div>
               </div>
               
               <!-- Text input-->
               <div class="form-group">
                 <div class="">
-                <input id="cedula" name="cedula" type="number" placeholder="Identificacion" class="form-control input-md" required="">
-                  
-                </div>
-              </div>
-              
-              <!-- Text input-->
-              <div class="form-group">
-                
-                <div class="">
-                <input id="correo" name="correo" type="email" placeholder="Correo" class="form-control input-md" required="">
-                  
+                <!--<input id="cedula" name="cedula" type="number" placeholder="Identificacion" class="form-control input-md" required="">-->
+                {{ form.ident(class="form-control input-md",placeholder="Identificacion",size=32) }}
                 </div>
               </div>
               
@@ -45,8 +53,8 @@
               <div class="form-group">
                 
                 <div class="">
-                <input id="direccion" name="direccion" type="text" placeholder="Direccion" class="form-control input-md" required="">
-                  
+                <!--<input id="correo" name="correo" type="email" placeholder="Correo" class="form-control input-md" required="">-->
+                {{ form.correo(class="form-control input-md",placeholder="Correo Electrónico",size=32) }}
                 </div>
               </div>
               
@@ -54,15 +62,21 @@
               <div class="form-group">
                 
                 <div class="">
-                <input id="telefono" name="telefono" type="text" placeholder="Celular" class="form-control input-md" required="">
-                  
+                <!--<input id="direccion" name="direccion" type="text" placeholder="Direccion" class="form-control input-md" required="">-->
+                  {{ form.direccion(class="form-control input-md",placeholder="Direccion",size=32) }}  
                 </div>
               </div>
               
-              
-              <!-- Multiple Radios -->
+              <!-- Text input-->
               <div class="form-group">
                 
+                <div class="">
+                <!--<input id="telefono" name="telefono" type="text" placeholder="Celular" class="form-control input-md" required="">-->
+                  {{ form.celular(class="form-control input-md",placeholder="Número Celular",size=32) }} 
+                </div>
+              </div>                           
+              <!-- Multiple Radios 
+              <div class="form-group">                
                 <div class="">
                 <div class="radio">
                   <label for="estado-0">
@@ -78,20 +92,20 @@
                   </div>
                 </div>
               </div>
-              
-              <!-- Button (Double) -->
-              <div class="form-group">
-                <div class="">
-                  <button id="crear()" name="crear()" class="btn btn-success">Registrar</button>
-                  <button id="modificar()" name="modificar()" class="btn btn-primary">Modificar</button>
-                </div>
-              </div>   
-          </form>
+              -->
+              <!-- Button (Double) --> 
+              <div class="d-flex justify-content-center">                
+                  {{ form.registrar(class="btn btn-primary btn-lg") }}                      
+              </div>                          
+          </form> 
+           
         </div>
+        
       </div>
+      
     </div>
   </section>
-
+<!--
   <div class="container">
     <div class="row d-flex justify-content-center">
         <div class="col-md-7">
@@ -122,4 +136,5 @@
     </div>
     </di>
     </div>
+    -->
 {% endblock %}

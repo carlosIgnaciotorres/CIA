@@ -14,3 +14,13 @@ class contrasena(FlaskForm):
     pws=PasswordField('Contraseña *',validators=[DataRequired(message='Contraseña es requerida, no lo deje en blanco')])
     confirmacion=PasswordField('Confirmación *',validators=[DataRequired(message='Confirmación es requerida, no lo deje en blanco')])
     asignar = SubmitField('Asignar contraseña')
+    
+
+class usuario(FlaskForm):
+    nombre = StringField('Nombre usuario *',validators=[DataRequired(message='Nombre usuario requerido para continuar')])
+    apellido = StringField('Apellido usuario *',validators=[DataRequired(message='El apellido del usuario es requerido para continuar')])
+    ident = IntegerField('Identificación *',validators=[DataRequired(message='La identificación es requerida para continuar')])
+    correo = StringField('Correo electrónico *',validators=[DataRequired(message='El correo electrónico es requerido para continuar')])
+    direccion = StringField('Dirección usuario *',validators=[DataRequired(message='La dirección es requerido para continuar')])
+    celular = StringField('Celular usuario *',validators=[DataRequired(message='El celular es requerido para continuar')])
+    registrar = SubmitField('Registrar')

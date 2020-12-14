@@ -1,12 +1,10 @@
 import hashlib
 import os
-from flask import Flask, render_template, request, flash
+from flask import Flask, render_template, request, redirect, url_for, flash
 from markupsafe import escape
-from clases import producto, contrasena
+from clases import producto, contrasena, usuario
 import conexion
 import utils as UT
-
-
 
 
 app = Flask(__name__)
@@ -89,7 +87,37 @@ def reg_producto():
 
 @app.route('/rusuario', methods=["GET", "POST"])
 def reg_usuario():
-    return render_template('registrousuario.html')
+    try:
+        if request.method == 'GET':
+            forinst = usuario()  # Una instancia del formulario 
+            return render_template('registrousuario.html',form=forinst)
+        else:            
+            nombreU = escape(request.form['nombre'])
+            apellidoU = escape(request.form['apellido'])
+            identU = escape(request.form['ident'])
+            correoU = escape(request.form['correo'])
+            direccionU = escape(request.form['direccion'])
+            celularU = escape(request.form['celular'])
+            tipoU=1
+            claveU=''
+            estadoU=''
+            linkU=''
+            
+            if int(identU)>=0:
+                query = "INSERT INTO usuario(nombre, apellido, documento, correo, direccion, celular, tipoDoc, clave, estado, linkrecuperacion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+                res = conexion.ejecutar_consulta_acc(query,(nombreU, apellidoU, identU, correoU, direccionU, celularU, tipoU, claveU, estadoU, linkU))
+                if res!=None:
+                    sal = 'Usuario agregado satisfactoriamente'
+                else:
+                    sal = 'Error al registrar los datos del usuario'
+            else:
+                sal="No puede realizar el registro"
+            flash(sal)
+            forinst = usuario() 
+            return redirect(url_for('reg_usuario'))
+    except:
+        pass
+
 
 @app.route('/actusuario', methods=["GET", "POST"])
 def act_usuario():
