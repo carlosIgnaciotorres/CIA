@@ -12,10 +12,10 @@ app = Flask(__name__)
 app.secret_key = os.urandom(24)
 mail= Mail(app)
 
-app.config['MAIL_SERVER']='smtp.mailtrap.io'
-app.config['MAIL_PORT'] = 2525
-app.config['MAIL_USERNAME'] = 'ba65810f63f0c4'
-app.config['MAIL_PASSWORD'] = '40c5ceef016106'
+app.config['MAIL_SERVER']='smtp.gmail.como'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'ciatienda.cia@gmail.com'
+app.config['MAIL_PASSWORD'] = 'Misiontic2020'
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
 
@@ -37,11 +37,12 @@ def recuperar():
         if request.method=='POST':
             user = escape(request.form['correo'])
             if UT.isEmailValid(user):
-                query= "SELECT count(id) FROM  WHERE correo = ?"
+                query= "SELECT count(id) FROM usuario WHERE correo = ?"
                 res = conexion.ejecutar_consulta_sel(query,(user))
+                #print(res)
                 if res!=None:
                     #Configuracion del correo 
-                    receiver = escape(request.form['correo'])
+                    receiver = request.form['correo']
                     sender = "Tienda cia <from@example.com>"
                     print (receiver)
                     recipients = [receiver]
