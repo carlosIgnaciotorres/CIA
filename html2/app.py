@@ -56,7 +56,7 @@ def recuperar():
                     flash('Error el correo no esta registrado en la base de datos')
             else: #la clave no reune las caracteristicas
                 flash('No es un formato de correo valido')
-        inst = contrasena()  # Una instancia del formulario 
+        inst = restaurarUsuario()  # Una instancia del formulario 
         return render_template('recusuario.html',form=inst)
     #except:
     #    pass

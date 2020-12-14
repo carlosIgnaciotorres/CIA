@@ -27,5 +27,5 @@ class usuario(FlaskForm):
     registrar = SubmitField('Registrar')
 
 class restaurarUsuario(FlaskForm):
-    correo=StringField('Contraseña *',validators=[DataRequired(message='Contraseña es requerida, no lo deje en blanco')])
+    correo = StringField('Contraseña *',validators=[DataRequired(message='Contraseña es requerida, no lo deje en blanco')])
     enviar = SubmitField('Enviar Correo')
