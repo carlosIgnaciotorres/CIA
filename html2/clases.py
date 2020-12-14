@@ -24,3 +24,7 @@ class usuario(FlaskForm):
     direccion = StringField('Dirección usuario *',validators=[DataRequired(message='La dirección es requerido para continuar')])
     celular = StringField('Celular usuario *',validators=[DataRequired(message='El celular es requerido para continuar')])
     registrar = SubmitField('Registrar')
+
+class restaurarUsuario(FlaskForm):
+    correo=StringField('Contraseña *',validators=[DataRequired(message='Contraseña es requerida, no lo deje en blanco')])
+    enviar = SubmitField('Enviar Correo')

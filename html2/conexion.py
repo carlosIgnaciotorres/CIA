@@ -5,11 +5,11 @@ import sqlite3
 # \\  ==> C:\sqlite3\db\c03.db
 # /sqlite3/db/c03.db
 #
-def ejecutar_consulta_sel(sql):
+def ejecutar_consulta_sel(sql,datos=None):
     try:
         with sqlite3.connect('cia.db') as con:
             cur = con.cursor()                  # Crea un cursor (un lugar para almacenar los resultados de la consulta)
-            sal = cur.execute(sql)
+            sal = cur.execute(sql,datos)
             if sal!=None:
                 sal = sal.fetchall()            # Recupera todos los resultados de la consulta (recordset - resultset)
     except:

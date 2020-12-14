@@ -35,12 +35,24 @@
      </div>   
     
     <div class="col-lg-4 col-md-6 bg-light p-5 form1">            
-        <form>
+        <form method="POST">
+          {% with messages = get_flashed_messages() %}
+              {% if messages %}
+              {% for message in messages %}    
+                  <div class="alert alert-primary alert-dismissible fade show text-center" role="alert">
+                      {{ message }}
+                      <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+              {% endfor %}
+              {% endif %}
+              {% endwith %}
             <p class="text-muted mb-4">Recuperar usuario</p>
             <div class="form-group mb-3">
-                <input id="usuario" type="usuario" placeholder="Ingrese su contraseña" required="" autofocus="" class="form-control rounded-pill border-0 shadow-sm px-4">
+              {{ form.correo(class="form-control rounded-pill border-0 shadow-sm px-4",placeholder="Ingrese su correo",size=48) }}
             </div>
-                <button type="submit" class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">enviar</button>                
+              {{ form.enviar(class="btn btn-success") }}
         </form>
     </div>
     </div>

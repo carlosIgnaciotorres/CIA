@@ -2,13 +2,22 @@ import hashlib
 import os
 from flask import Flask, render_template, request, redirect, url_for, flash
 from markupsafe import escape
-from clases import producto, contrasena, usuario
+from clases import producto, contrasena, usuario, restaurarUsuario
 import conexion
 import utils as UT
+from flask_mail import Mail, Message
 
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
+mail= Mail(app)
+
+app.config['MAIL_SERVER']='smtp.mailtrap.io'
+app.config['MAIL_PORT'] = 2525
+app.config['MAIL_USERNAME'] = 'ba65810f63f0c4'
+app.config['MAIL_PASSWORD'] = '40c5ceef016106'
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = False
 
 @app.route('/', methods=['GET', 'POST'])
 def Index():    
@@ -21,6 +30,36 @@ def agregar_vista():
 @app.route('/vista1', methods=['GET', 'POST'])
 def agregar_vistaadm():
     return render_template('vista_adm.html')
+
+@app.route('/recuperar', methods=['GET', 'POST'])
+def recuperar():
+    #try:
+        if request.method=='POST':
+            user = escape(request.form['correo'])
+            if UT.isEmailValid(user):
+                query= "SELECT count(id) FROM  WHERE correo = ?"
+                res = conexion.ejecutar_consulta_sel(query,(user))
+                if res!=None:
+                    #Configuracion del correo 
+                    receiver = escape(request.form['correo'])
+                    sender = "Tienda cia <from@example.com>"
+                    print (receiver)
+                    recipients = [receiver]
+                    saludo='Correo de recuperacion de clave'
+                    #Generar link
+                    msg = Message(saludo, sender = sender, recipients = recipients)
+                    msg.body = U"""Hola hemos recibido una solicitud por parte de este correo para recuperar 
+                                la clave haga clic en el siguiente link sino ignore este mensaje"""
+                    mail.send(msg)
+                    #Envio link
+                else:   
+                    flash('Error el correo no esta registrado en la base de datos')
+            else: #la clave no reune las caracteristicas
+                flash('No es un formato de correo valido')
+        inst = contrasena()  # Una instancia del formulario 
+        return render_template('recusuario.html',form=inst)
+    #except:
+    #    pass
 
 @app.route('/password', methods=['GET', 'POST'])
 def add_password():
@@ -134,7 +173,7 @@ def mostrar_accesorio():
 def mostrar_admin():
     if request.method == 'POST':
         usuario = request.form['usuario']
-        contraseña = request.form['contraseña']
+        password = request.form['password']
         return render_template('Administrador.html')
     else:
         return render_template('login.html')    
