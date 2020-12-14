@@ -47,8 +47,8 @@ def add_password():
                     flash('La confirmacion no es correcta')
             else: #la contraseña no reune las caracteristicas
                 flash('La contraseña no es valida')
-        inst = contrasena()  # Una instancia del formulario 
-        return render_template('password.html',form=inst)
+        #inst = contrasena()  # Una instancia del formulario 
+        return redirect(url_for('add_password'))
     except:
         pass
 
@@ -71,7 +71,6 @@ def reg_producto():
                 query = "INSERT INTO producto(nombre, referencia, cantidad, imagen, familia, estado) VALUES(?, ?, ?, ?, ?, ?)"
                 res = conexion.ejecutar_consulta_acc(query,(nomP, refP, canP, imP, familia, estado))
                 if res!=None:
-                    #VACIAR CAMPOS
                     sal = 'Datos registrados con éxito'
                 else:
                     sal = 'Error al registrar los datos'
@@ -79,7 +78,7 @@ def reg_producto():
                 sal="Cantidad invalida"
             flash(sal)
             inst = producto()  # Una instancia del formulario 
-            return render_template('registroproducto.html',form=inst)
+            return redirect(url_for('reg_producto'))
     except:
         pass
 
