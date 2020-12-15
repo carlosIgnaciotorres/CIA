@@ -7,28 +7,21 @@ import conexion
 import utils as UT
 from flask_mail import Mail, Message
 from db import db, views
+from werkzeug.utils import secure_filename
 
 
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 app.register_blueprint(db)
-#mail= Mail(app)
+mail= Mail(app)
 
-app.config['MAIL_SERVER']='smtp.mailtrap.io'
-app.config['MAIL_PORT'] = 2525
-app.config['MAIL_USERNAME'] = 'ba65810f63f0c4'
-app.config['MAIL_PASSWORD'] = '40c5ceef016106'
-app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USE_SSL'] = False 
-
-""" app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_SERVER']='smtp.gmail.como'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USERNAME'] = 'ciatienda.cia@gmail.com'
 app.config['MAIL_PASSWORD'] = 'Misiontic2020'
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USE_SSL'] = False """
-mail= Mail(app)
+app.config['MAIL_USE_SSL'] = False
 
 @app.route('/', methods=['GET', 'POST'])
 def Index():    
@@ -76,8 +69,8 @@ def recuperar():
     #except:
     #    pass
 
-@app.route('/password/<string:link>', methods=['GET', 'POST'])
-def add_password(link):
+@app.route('/password', methods=['GET', 'POST'])
+def add_password():
     try:
         if request.method=='POST':
             pws = escape(request.form['pws'])
@@ -101,7 +94,7 @@ def add_password(link):
 
 @app.route('/rproducto', methods=['GET', 'POST'])
 def reg_producto():
-    #try:
+    try:
         if request.method=='GET':
             inst = producto()  # Una instancia del formulario 
             return render_template('registroproducto.html',form=inst)
@@ -109,7 +102,9 @@ def reg_producto():
             nomP = escape(request.form['nomPro'])
             refP = escape(request.form['refPro'])
             canP = escape(request.form['canPro'])
-            # imP = escape(request.form['imPro'])
+            # imP = request.files['imPro']
+            # imP.save(secure_filename(imP.filename)
+            # Falta subir el nombre del archivo a la base de datos
             imP="imagen1.jpg"
             familia=1
             estado='A'
@@ -121,8 +116,8 @@ def reg_producto():
             flash(sal)
             inst = producto()  # Una instancia del formulario 
             return redirect(url_for('reg_producto'))
-    #except:
-    #    pass
+    except:
+       pass
 
 @app.route('/actproducto', methods=["GET", "POST"])
 def act_producto():
@@ -134,12 +129,16 @@ def act_producto():
             nomP = escape(request.form['nomPro'])
             refP = escape(request.form['refPro'])
             canP = escape(request.form['canPro'])
+
+            #FALTA SUBIR LA IMAGEN AL DRIVE Y SACAR LA RUTA
             # imP = escape(request.form['imPro'])
+            # f = request.files['imPro']
+            # f.save(secure_filename(f.filename))
             imP="imagen1.jpg"
             familia=1
             estado='A'
             idpro = 11 
-            #FALTA SUBIR LA IMAGEN AL DRIVE Y SACAR LA RUTA
+          
             if int(canP)>=0:
                 query= "UPDATE producto set nombre = ? , referencia = ? , cantidad = ? , imagen = ? , familia = ? , estado = ? WHERE id = ?"
                 res = conexion.ejecutar_consulta_acc(query,(nomP, refP, canP, imP, familia, estado, idpro))
@@ -168,26 +167,16 @@ def reg_usuario():
             correoU = escape(request.form['correo'])
             direccionU = escape(request.form['direccion'])
             celularU = escape(request.form['celular'])
+            tipoU=1
+            claveU=''
+            estadoU=''
+            linkU=''
             
             if int(identU)>=0:
-                res = views.crearusuario(nombreU, apellidoU, identU, correoU, direccionU, celularU)
-                if res=="True":
+                query = "INSERT INTO usuario(nombre, apellido, documento, correo, direccion, celular, tipoDoc, clave, estado, linkrecuperacion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+                res = conexion.ejecutar_consulta_acc(query,(nombreU, apellidoU, identU, correoU, direccionU, celularU, tipoU, claveU, estadoU, linkU))
+                if res!=None:
                     sal = 'Usuario agregado satisfactoriamente'
-                    #Configuracion del correo 
-                    receiver = request.form['correo']
-                    sender = "Tienda cia <from@example.com>"
-                    print (receiver)
-                    recipients = [receiver]
-                    saludo='Correo de recuperacion de clave'
-                    link=views.genlink(receiver)
-                    #Generar link
-                    msg = Message(saludo, sender = sender, recipients = recipients)
-                    # msg.body = U"""Hola hemos recibido una solicitud por parte de este correo para recuperar 
-                    #             la clave haga clic en el siguiente link sino ignore este mensaje"""
-                    msg.html='<p>Hola hemos recibido una solicitud por parte de este correo para recuperar'
-                    msg.html += 'la clave, haga clic en el siguiente <a href="http://127.0.0.1:5000/password/'
-                    msg.html += link +'">link </a>  sino fue usted ignore este mensaje<p>'
-                    mail.send(msg)
                 else:
                     sal = 'Error al registrar los datos del usuario'
             else:
@@ -218,7 +207,7 @@ def mostrar_admin():
         password = request.form['password']
         return render_template('Administrador.html')
     else:
-        return render_template('Administrador.html')    
+        return render_template('login.html')    
 
 if __name__ == "__main__":   
    app.run(port=5000, debug=True)

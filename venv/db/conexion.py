@@ -7,8 +7,8 @@ import sqlite3
 # /sqlite3/db/c03.db
 #
 def ejecutar_consulta_sel(sql,datos=None):
-    #try:
-        print(f"{sql} - {datos}")
+    try:
+        #print(f"{sql} - {datos}")
         with sqlite3.connect('../cia.db') as con:
             cur = con.cursor()                  # Crea un cursor (un lugar para almacenar los resultados de la consulta)
             if datos!=None:
@@ -17,9 +17,9 @@ def ejecutar_consulta_sel(sql,datos=None):
                 sal = cur.execute(sql)
             if sal!=None:
                 sal = sal.fetchall()            # Recupera todos los resultados de la consulta (recordset - resultset)
-    #except:
-    #    sal = None
-        return sal
+    except:
+        sal = None
+    return sal
 
 def ejecutar_consulta_acc(sql,datos=None):
     #try:
