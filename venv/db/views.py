@@ -15,6 +15,18 @@ def galeria(id):
     json_res = json.dumps(res)
     return json_res
 
+@db.route('/crearusuario/<string:nombre>/<string:apellido>/<string:documento>/<string:correo>/<string:direccion>/<string:celular>')
+def crearusuario(nombre, apellido,documento,correo,direccion,celular):
+    tipoU=1
+    estadoU="A"
+    query = "INSERT INTO usuario(nombre, apellido, documento, correo, direccion, celular, tipoDoc,  estado ) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)"
+    res = CON.ejecutar_consulta_acc(query,(nombre, apellido, documento, correo, direccion, celular, tipoU,  estadoU ))
+    if res!=None:
+        sal = 'True'
+    else:
+        sal = 'False'
+    return sal
+
 @db.route('/usuario/<int:id>')
 def usuario(id):
     query= "SELECT id, correo, nombre, apellido, celular, documento, direccion, estado FROM usuario  "
@@ -29,10 +41,11 @@ def usuario(id):
 @db.route('/existeusuario/<string:correo>')
 def existeusuario(correo):
     ans = "True"
-    query= "SELECT count(id) FROM usuario WHERE correo = "+ correo
+    query= f"SELECT count(id) FROM usuario WHERE correo = '{correo}'" 
+    print(f" SQL: {query}")
     res = CON.ejecutar_consulta_sel(query,None)
     if res==None or len(res)==0:
-        ans = 'False'
+        ans = "False"
     if res[0][0]==0:
         ans="False"
     return ans 
@@ -60,12 +73,12 @@ def genlink(correo):
 
 @db.route('/pruebalink/<string:link>')
 def pruebalink(link):
-    ans = True
+    ans = "True"
     query= "SELECT count(id)  FROM usuario WHERE linkrecuperacion = '" +link + "'"
     res = CON.ejecutar_consulta_sel(query,None)
     if res==None or len(res)==0:
-        ans = False
-    return str(ans)
+        ans = "False"
+    return ans
 
 @db.route('/tipoUser/<int:iduser>')
 def tipousuario(iduser):
@@ -102,3 +115,16 @@ def crearproducto(nombre,referencia,cantidad,nombreImg):
     else:
         sal = 'Error al registrar los datos'
     return sal
+
+@db.route('/borrarProducto/<int:idproducto>')
+def borrarProducto(idproducto):
+    familia=1
+    estado='A'
+    query = "UPDATE  producto set estado ='I' WHERE id = ?"
+    res = CON.ejecutar_consulta_acc(query,( int(idproducto)))
+    if res!=None:
+        sal = 'True'
+    else:
+        sal = 'False'
+    return sal
+    
