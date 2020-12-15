@@ -1,0 +1,6 @@
+flask
+flask-wtf
+flask-bootstrap4
+flask-login
+flask-mail
+validate_mail

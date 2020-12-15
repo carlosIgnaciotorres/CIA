@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda CIA</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/esq.css') }}">
+</head>
+<body>
+    <header>       
+        <div class="container">   
+            <!-- Acá debe referirse a la carpeta static-->
+            <div class="d-flex flex-row ">
+            <div class="mt-3">
+                <a><img src="{{ url_for('static',filename='img/logocia.png') }}" alt="logo-cia-tecnologia" width="60%" ></a>                
+            </div>
+            
+            <div class="mt-5 ">
+                <h1 class="text-white">CIA - Control de Inventario de Accesorios</h1>
+                <p class="text-white">Calle 50 N # 20-20 Armenia - Colombia</p>
+            </div>
+            </div>
+        </div>
+    </header>    
+        <div class="container-fluid pt-4">
+            {% block body %}
+
+
+
+            {% endblock %}
+        </div>
+
+    <footer class="container-fluid p-4"  >
+        <div class="row justify-content-md-between align-items-center">
+            <div class="col-lg-12 text-center  ">   
+                <span class="text-secondary">Copyright © 2020 - Todos los derechos reservados</span> 
+            </div>
+        </div>
+    </footer>      
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
