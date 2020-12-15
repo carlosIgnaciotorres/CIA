@@ -13,14 +13,22 @@ from db import db, views
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 app.register_blueprint(db)
-mail= Mail(app)
+#mail= Mail(app)
 
-app.config['MAIL_SERVER']='smtp.gmail.como'
+app.config['MAIL_SERVER']='smtp.mailtrap.io'
+app.config['MAIL_PORT'] = 2525
+app.config['MAIL_USERNAME'] = 'ba65810f63f0c4'
+app.config['MAIL_PASSWORD'] = '40c5ceef016106'
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = False 
+
+""" app.config['MAIL_SERVER']='smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USERNAME'] = 'ciatienda.cia@gmail.com'
 app.config['MAIL_PASSWORD'] = 'Misiontic2020'
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USE_SSL'] = False
+app.config['MAIL_USE_SSL'] = False """
+mail= Mail(app)
 
 @app.route('/', methods=['GET', 'POST'])
 def Index():    
@@ -52,11 +60,11 @@ def recuperar():
                     link=views.genlink(receiver)
                     #Generar link
                     msg = Message(saludo, sender = sender, recipients = recipients)
-                    msg.body = U"""Hola hemos recibido una solicitud por parte de este correo para recuperar 
-                                la clave haga clic en el siguiente link sino ignore este mensaje"""
-                    msg.html='Hola hemos recibido una solicitud por parte de este correo para recuperar'
-                    msg.html += 'la clave haga clic en el siguiente link <a href="/password/'
-                    msg.html += link +'">  sino fue usted ignore este mensaje'
+                    # msg.body = U"""Hola hemos recibido una solicitud por parte de este correo para recuperar 
+                    #             la clave haga clic en el siguiente link sino ignore este mensaje"""
+                    msg.html='<p>Hola hemos recibido una solicitud por parte de este correo para recuperar'
+                    msg.html += 'la clave, haga clic en el siguiente <a href="http://127.0.0.1:5000/password/'
+                    msg.html += link +'">link </a>  sino fue usted ignore este mensaje<p>'
                     mail.send(msg)
                     #Envio link
                 else:   
@@ -68,8 +76,8 @@ def recuperar():
     #except:
     #    pass
 
-@app.route('/password', methods=['GET', 'POST'])
-def add_password():
+@app.route('/password/<string:link>', methods=['GET', 'POST'])
+def add_password(link):
     try:
         if request.method=='POST':
             pws = escape(request.form['pws'])
@@ -160,16 +168,26 @@ def reg_usuario():
             correoU = escape(request.form['correo'])
             direccionU = escape(request.form['direccion'])
             celularU = escape(request.form['celular'])
-            tipoU=1
-            claveU=''
-            estadoU=''
-            linkU=''
             
             if int(identU)>=0:
-                query = "INSERT INTO usuario(nombre, apellido, documento, correo, direccion, celular, tipoDoc, clave, estado, linkrecuperacion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
-                res = conexion.ejecutar_consulta_acc(query,(nombreU, apellidoU, identU, correoU, direccionU, celularU, tipoU, claveU, estadoU, linkU))
-                if res!=None:
+                res = views.crearusuario(nombreU, apellidoU, identU, correoU, direccionU, celularU)
+                if res=="True":
                     sal = 'Usuario agregado satisfactoriamente'
+                    #Configuracion del correo 
+                    receiver = request.form['correo']
+                    sender = "Tienda cia <from@example.com>"
+                    print (receiver)
+                    recipients = [receiver]
+                    saludo='Correo de recuperacion de clave'
+                    link=views.genlink(receiver)
+                    #Generar link
+                    msg = Message(saludo, sender = sender, recipients = recipients)
+                    # msg.body = U"""Hola hemos recibido una solicitud por parte de este correo para recuperar 
+                    #             la clave haga clic en el siguiente link sino ignore este mensaje"""
+                    msg.html='<p>Hola hemos recibido una solicitud por parte de este correo para recuperar'
+                    msg.html += 'la clave, haga clic en el siguiente <a href="http://127.0.0.1:5000/password/'
+                    msg.html += link +'">link </a>  sino fue usted ignore este mensaje<p>'
+                    mail.send(msg)
                 else:
                     sal = 'Error al registrar los datos del usuario'
             else:
@@ -200,7 +218,7 @@ def mostrar_admin():
         password = request.form['password']
         return render_template('Administrador.html')
     else:
-        return render_template('login.html')    
+        return render_template('Administrador.html')    
 
 if __name__ == "__main__":   
    app.run(port=5000, debug=True)
