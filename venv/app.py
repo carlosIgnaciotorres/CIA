@@ -60,11 +60,11 @@ def recuperar():
                     link=views.genlink(receiver)
                     #Generar link
                     msg = Message(saludo, sender = sender, recipients = recipients)
-                    # msg.body = U"""Hola hemos recibido una solicitud por parte de este correo para recuperar 
-                    #             la clave haga clic en el siguiente link sino ignore este mensaje"""
-                    msg.html='<p>Hola hemos recibido una solicitud por parte de este correo para recuperar'
-                    msg.html += 'la clave, haga clic en el siguiente <a href="http://127.0.0.1:5000/password/'
-                    msg.html += link +'">link </a>  sino fue usted ignore este mensaje<p>'
+                    msg.body = U"""Hola hemos recibido una solicitud por parte de este correo para recuperar 
+                                la clave haga clic en el siguiente link sino ignore este mensaje"""
+                    msg.html='Hola hemos recibido una solicitud por parte de este correo para recuperar'
+                    msg.html += 'la clave haga clic en el siguiente link <a href="/password/'
+                    msg.html += link +'">  sino fue usted ignore este mensaje'
                     mail.send(msg)
                     #Envio link
                 else:   
