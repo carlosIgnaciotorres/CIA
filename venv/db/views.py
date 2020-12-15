@@ -26,6 +26,17 @@ def usuario(id):
     json_res = json.dumps(res)
     return json_res
 
+@db.route('/existeusuario/<string:correo>')
+def existeusuario(correo):
+    ans = "True"
+    query= "SELECT count(id) FROM usuario WHERE correo = "+ correo
+    res = CON.ejecutar_consulta_sel(query,None)
+    if res==None or len(res)==0:
+        ans = 'False'
+    if res[0][0]==0:
+        ans="False"
+    return ans 
+
 @db.route('/genlink/<string:correo>')
 def genlink(correo):
     query= "SELECT id,  estado  FROM usuario WHERE correo = '" +correo + "'"
@@ -45,7 +56,7 @@ def genlink(correo):
             print(f'SQL:{query} /n datos:{pwd} --- {iduser}')
             dat = CON.ejecutar_consulta_acc(query,(pwd,  iduser))
             print(f'datos : {dat}')
-    return link+" - "+pwd                                        
+    return pwd                                        
 
 @db.route('/pruebalink/<string:link>')
 def pruebalink(link):
@@ -65,6 +76,19 @@ def tipousuario(iduser):
         ans = 'None'
     if res[0][0]==0:
         ans="Usuario"
+    return ans 
+
+@db.route('/actclave/<int:iduser>/<string:clave>')
+def actclave(userid,clave):
+    rpt = hashlib.md5(clave.encode())
+    pwd = rpt.hexdigest()
+    estado="A"
+    query= "UPDATE usuario set clave = ? , estado = ? WHERE id = ?"
+    res = CON.ejecutar_consulta_acc(query,(pwd, estado , int(userid)))
+    if res!=None:
+        ans = 'Datos registrados con éxito'
+    else:   #else res
+        ans= 'Error al registrar los datos'
     return ans
 
 @db.route('/crearproducto/<string:nombre>/<string:referencia>/<int:cantidad>/<string:nombreImg>')

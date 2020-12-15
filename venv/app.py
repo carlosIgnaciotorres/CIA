@@ -40,20 +40,23 @@ def recuperar():
         if request.method=='POST':
             user = escape(request.form['correo'])
             if UT.isEmailValid(user):
-                query= "SELECT count(id) FROM usuario WHERE correo = ?"
-                res = conexion.ejecutar_consulta_sel(query,(user))
+                res = views.existeusuario(user)
                 #print(res)
-                if res!=None:
+                if res=="True":
                     #Configuracion del correo 
                     receiver = request.form['correo']
                     sender = "Tienda cia <from@example.com>"
                     print (receiver)
                     recipients = [receiver]
                     saludo='Correo de recuperacion de clave'
+                    link=views.genlink(receiver)
                     #Generar link
                     msg = Message(saludo, sender = sender, recipients = recipients)
                     msg.body = U"""Hola hemos recibido una solicitud por parte de este correo para recuperar 
                                 la clave haga clic en el siguiente link sino ignore este mensaje"""
+                    msg.html='Hola hemos recibido una solicitud por parte de este correo para recuperar'
+                    msg.html += 'la clave haga clic en el siguiente link <a href="/password/'
+                    msg.html += link +'">  sino fue usted ignore este mensaje'
                     mail.send(msg)
                     #Envio link
                 else:   
@@ -74,16 +77,9 @@ def add_password():
             if UT.isPasswordValid(pws):
                 if UT.isPasswordValid(conf):
                     if pws==conf:
-                        rpt = hashlib.md5(pws.encode())
-                        pwd = rpt.hexdigest()
-                        estado="A"
                         iduser=1
-                        query= "UPDATE usuario set clave = ? , estado = ? WHERE id = ?"
-                        res = conexion.ejecutar_consulta_acc(query,(pwd, estado , iduser))
-                        if res!=None:
-                            flash('Datos registrados con éxito')
-                        else:   #else res
-                            flash('Error al registrar los datos')
+                        res=views.actclave(iduser,pws)
+                        flash(res)
                     else: #diferente pws y conf
                         flash('La contraseña y su verificacion no coinciden')
                 else: #la verificacion no reune las caracteristicas
@@ -111,7 +107,6 @@ def reg_producto():
             estado='A'
             #FALTA SUBIR LA IMAGEN AL DRIVE Y SACAR LA RUTA
             if int(canP)>=0:
-                # sal = url_for(f'bd.crearproducto/{nomP}/{refP}/{canP}/{imP}')
                 sal= views.crearproducto(nomP,refP,canP,imP)
             else:
                 sal="Cantidad invalida"
