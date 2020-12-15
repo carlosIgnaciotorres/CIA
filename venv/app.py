@@ -7,6 +7,7 @@ import conexion
 import utils as UT
 from flask_mail import Mail, Message
 from db import db, views
+from werkzeug.utils import secure_filename
 
 
 
@@ -93,7 +94,7 @@ def add_password():
 
 @app.route('/rproducto', methods=['GET', 'POST'])
 def reg_producto():
-    #try:
+    try:
         if request.method=='GET':
             inst = producto()  # Una instancia del formulario 
             return render_template('registroproducto.html',form=inst)
@@ -101,7 +102,9 @@ def reg_producto():
             nomP = escape(request.form['nomPro'])
             refP = escape(request.form['refPro'])
             canP = escape(request.form['canPro'])
-            # imP = escape(request.form['imPro'])
+            # imP = request.files['imPro']
+            # imP.save(secure_filename(imP.filename)
+            # Falta subir el nombre del archivo a la base de datos
             imP="imagen1.jpg"
             familia=1
             estado='A'
@@ -113,8 +116,8 @@ def reg_producto():
             flash(sal)
             inst = producto()  # Una instancia del formulario 
             return redirect(url_for('reg_producto'))
-    #except:
-    #    pass
+    except:
+       pass
 
 @app.route('/actproducto', methods=["GET", "POST"])
 def act_producto():
@@ -126,12 +129,16 @@ def act_producto():
             nomP = escape(request.form['nomPro'])
             refP = escape(request.form['refPro'])
             canP = escape(request.form['canPro'])
+
+            #FALTA SUBIR LA IMAGEN AL DRIVE Y SACAR LA RUTA
             # imP = escape(request.form['imPro'])
+            # f = request.files['imPro']
+            # f.save(secure_filename(f.filename))
             imP="imagen1.jpg"
             familia=1
             estado='A'
             idpro = 11 
-            #FALTA SUBIR LA IMAGEN AL DRIVE Y SACAR LA RUTA
+          
             if int(canP)>=0:
                 query= "UPDATE producto set nombre = ? , referencia = ? , cantidad = ? , imagen = ? , familia = ? , estado = ? WHERE id = ?"
                 res = conexion.ejecutar_consulta_acc(query,(nomP, refP, canP, imP, familia, estado, idpro))
