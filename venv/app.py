@@ -7,6 +7,7 @@ import conexion
 import utils as UT
 from flask_mail import Mail, Message
 from db import db, views
+from werkzeug.utils import secure_filename
 
 
 
@@ -14,7 +15,7 @@ app = Flask(__name__)
 app.secret_key = os.urandom(24)
 app.register_blueprint(db)
 #mail= Mail(app)
-
+app.config['UPLOAD_FOLDER']="./imagenes"
 app.config['MAIL_SERVER']='smtp.mailtrap.io'
 app.config['MAIL_PORT'] = 2525
 app.config['MAIL_USERNAME'] = 'ba65810f63f0c4'
@@ -101,7 +102,7 @@ def add_password(link):
 
 @app.route('/rproducto', methods=['GET', 'POST'])
 def reg_producto():
-    #try:
+    try:
         if request.method=='GET':
             inst = producto()  # Una instancia del formulario 
             return render_template('registroproducto.html',form=inst)
@@ -109,20 +110,21 @@ def reg_producto():
             nomP = escape(request.form['nomPro'])
             refP = escape(request.form['refPro'])
             canP = escape(request.form['canPro'])
-            # imP = escape(request.form['imPro'])
-            imP="imagen1.jpg"
+            imP = request.files['imPro']
+            filename = secure_filename(imP.filename)
+            imP.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             familia=1
             estado='A'
             #FALTA SUBIR LA IMAGEN AL DRIVE Y SACAR LA RUTA
             if int(canP)>=0:
-                sal= views.crearproducto(nomP,refP,canP,imP)
+                sal= views.crearproducto(nomP,refP,canP,filename)
             else:
                 sal="Cantidad invalida"
             flash(sal)
             inst = producto()  # Una instancia del formulario 
             return redirect(url_for('reg_producto'))
-    #except:
-    #    pass
+    except:
+        pass
 
 @app.route('/actproducto', methods=["GET", "POST"])
 def act_producto():
@@ -134,12 +136,13 @@ def act_producto():
             nomP = escape(request.form['nomPro'])
             refP = escape(request.form['refPro'])
             canP = escape(request.form['canPro'])
-            # imP = escape(request.form['imPro'])
+            # imP = request.files['imPro']
+            # filename = secure_filename(imP.filename)
+            # imP.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             imP="imagen1.jpg"
             familia=1
             estado='A'
-            idpro = 11 
-            #FALTA SUBIR LA IMAGEN AL DRIVE Y SACAR LA RUTA
+            idpro = 3 
             if int(canP)>=0:
                 query= "UPDATE producto set nombre = ? , referencia = ? , cantidad = ? , imagen = ? , familia = ? , estado = ? WHERE id = ?"
                 res = conexion.ejecutar_consulta_acc(query,(nomP, refP, canP, imP, familia, estado, idpro))
