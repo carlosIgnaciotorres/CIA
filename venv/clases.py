@@ -10,6 +10,8 @@ class producto(FlaskForm):
     imPro = FileField()
     registrar = SubmitField('Registrar')
     actualizar = SubmitField('Actualizar')
+    borrar = SubmitField('Borrar')
+    cerrar = SubmitField('Cerrar')
 
 
 class contrasena(FlaskForm):

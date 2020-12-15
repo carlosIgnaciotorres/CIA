@@ -8,7 +8,7 @@
         <div class="card-body">
           <!-- Inicia con h4 y cierra con h2-->
           <form method="POST">
-            {% with messages = get_flashed_messages() %}
+              {% with messages = get_flashed_messages() %}
               {% if messages %}
               {% for message in messages %}    
                   <div class="alert alert-primary alert-dismissible fade show text-center" role="alert">
@@ -25,10 +25,9 @@
               <p class="card-text">{{ form.canPro(class="form-control input-md",placeholder="Cantidad",type="number") }}</p>
               
               {{ form.actualizar(class="btn btn-success") }}
-              
-              <a href="#" class="btn btn-warning">Borrar</a>
-              <a href="#" class="btn btn-danger">Cerrar</a>
-              
+              {{ form.borrar(class="btn btn-warning") }}
+              {{ form.cerrar(class="btn btn btn-danger") }}
+      
           </form>
         </div>
       </div>
