@@ -3,7 +3,6 @@ import os
 from flask import Flask, render_template, request, redirect, url_for, flash, Blueprint, session
 from markupsafe import escape
 from clases import producto, contrasena, usuario, restaurarUsuario
-import conexion
 import utils as UT
 from flask_mail import Mail, Message
 from db import db, views

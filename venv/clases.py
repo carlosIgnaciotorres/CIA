@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*- 
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, TextAreaField, PasswordField, IntegerField, FileField
+from wtforms import StringField, SubmitField, BooleanField, TextAreaField, PasswordField, IntegerField, FileField
 from wtforms.validators import DataRequired 
 
 class producto(FlaskForm):
@@ -32,3 +32,4 @@ class usuario(FlaskForm):
 class restaurarUsuario(FlaskForm):
     correo = StringField('Contraseña *',validators=[DataRequired(message='Contraseña es requerida, no lo deje en blanco')])
     enviar = SubmitField('Enviar Correo')
+

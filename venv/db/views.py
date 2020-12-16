@@ -30,6 +30,9 @@ def crearusuario(nombre, apellido,documento,correo,direccion,celular):
 @db.route('/usuario/<int:id>')
 def usuario(id):
     query= "SELECT id, correo, nombre, apellido, celular, documento, direccion, estado FROM usuario  "
+    print(CON.cifrardatos(query))
+    print()
+    print(CON.descifrardatos(CON.cifrardatos(query)))
     if int(id) > 0:
         query =query + 'WHERE id = '+ str(id)
         res = CON.ejecutar_consulta_sel(query,None)
