@@ -180,15 +180,23 @@ def reg_usuario():
                     sender = "Tienda cia <from@example.com>"
                     print (receiver)
                     recipients = [receiver]
-                    saludo='Correo de recuperacion de clave'
+                    saludo='Bienvenido al nuevo gestor de inventarios CIA'
                     link=views.genlink(receiver)
                     #Generar link
                     msg = Message(saludo, sender = sender, recipients = recipients)
                     # msg.body = U"""Hola hemos recibido una solicitud por parte de este correo para recuperar 
                     #             la clave haga clic en el siguiente link sino ignore este mensaje"""
-                    msg.html='<p>Hola hemos recibido una solicitud por parte de este correo para recuperar'
-                    msg.html += 'la clave, haga clic en el siguiente <a href="http://127.0.0.1:5000/password/'
-                    msg.html += link +'">link </a>  sino fue usted ignore este mensaje<p>'
+                    msg.html='<p>Hola, <strong>'+nombreU+' '+apellidoU+'</strong> hoy hemos queremos saludarte y darte la bienvenida al'
+                    msg.html += ' equipo de CIA, para nosotros es importante que formes parte de nuestro grupo. El siguiente paso es que'
+                    msg.html += ' actualices tu contrase&ntilde;a, para ello en este correo te ponemos un link, para&nbsp; acceder al '
+                    msg.html += ' sitio de cambio de contrase&ntilde;a, hasta que no asignes una no podras '
+                    msg.html += 'disfrutar de esta gran herramienta.</p>'
+                    msg.html += '<p>&nbsp;</p>'
+                    msg.html += '<p>Es muy importante que tengas en cuenta que por seguridad la contrase&ntilde;a debe cumplir con una serie de requisitos:&nbsp;</p>'
+                    msg.html += '<ul><li>Debe tener al menos 8 caracteres y un m&aacute;ximo de 16.</li><li>Debe contener al menos 1 caracter en may&uacute;scula (A-Z).</li>'
+                    msg.html += '<li>Debe contener al menos 1 caracter en min&uacute;scula (a-z).</li><li>Debe contener al menos 1 caracter num&eacute;rico (0-9).</li><li>Debe contener al menos 1 caracter especial ($,.&lt;&gt;).</li></ul>'
+                    msg.html += '<p>Haga clic en el siguiente <a href="http://127.0.0.1:5000/password/'
+                    msg.html += link +'">link </a>  Le deseamos un gran día</p>'
                     mail.send(msg)
                 else:
                     sal = 'Error al registrar los datos del usuario'
