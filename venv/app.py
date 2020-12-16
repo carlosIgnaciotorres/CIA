@@ -14,20 +14,20 @@ app = Flask(__name__)
 app.secret_key = os.urandom(24)
 app.register_blueprint(db)
 #mail= Mail(app)
-app.config['UPLOAD_FOLDER']="./imagenes"
+""" app.config['UPLOAD_FOLDER']="./imagenes"
 app.config['MAIL_SERVER']='smtp.mailtrap.io'
 app.config['MAIL_PORT'] = 2525
 app.config['MAIL_USERNAME'] = 'ba65810f63f0c4'
 app.config['MAIL_PASSWORD'] = '40c5ceef016106'
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USE_SSL'] = False 
+app.config['MAIL_USE_SSL'] = False  """
 
-""" app.config['MAIL_SERVER']='smtp.gmail.com'
-app.config['MAIL_PORT'] = 465
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
 app.config['MAIL_USERNAME'] = 'ciatienda.cia@gmail.com'
 app.config['MAIL_PASSWORD'] = 'Misiontic2020'
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USE_SSL'] = False """
+app.config['MAIL_USE_SSL'] = False
 mail= Mail(app)
 
 @app.route('/', methods=['GET', 'POST'])
@@ -159,7 +159,7 @@ def act_producto():
 
 @app.route('/rusuario', methods=["GET", "POST"])
 def reg_usuario():
-    try:
+    #try:
         if request.method == 'GET':
             forinst = usuario()  # Una instancia del formulario 
             return render_template('registrousuario.html',form=forinst)
@@ -177,7 +177,7 @@ def reg_usuario():
                     sal = 'Usuario agregado satisfactoriamente'
                     #Configuracion del correo 
                     receiver = request.form['correo']
-                    sender = "Tienda cia <from@example.com>"
+                    sender = "Tienda cia <ciatienda.cia@gmail.com>"
                     print (receiver)
                     recipients = [receiver]
                     saludo='Bienvenido al nuevo gestor de inventarios CIA'
@@ -186,17 +186,19 @@ def reg_usuario():
                     msg = Message(saludo, sender = sender, recipients = recipients)
                     # msg.body = U"""Hola hemos recibido una solicitud por parte de este correo para recuperar 
                     #             la clave haga clic en el siguiente link sino ignore este mensaje"""
-                    msg.html='<p>Hola, <strong>'+nombreU+' '+apellidoU+'</strong> hoy hemos queremos saludarte y darte la bienvenida al'
+                    msg.html='<p>Hola, '+nombreU+' '+apellidoU+' hoy hemos queremos saludarte y darte la bienvenida al'
                     msg.html += ' equipo de CIA, para nosotros es importante que formes parte de nuestro grupo. El siguiente paso es que'
-                    msg.html += ' actualices tu contrase&ntilde;a, para ello en este correo te ponemos un link, para&nbsp; acceder al '
-                    msg.html += ' sitio de cambio de contrase&ntilde;a, hasta que no asignes una no podras '
-                    msg.html += 'disfrutar de esta gran herramienta.</p>'
-                    msg.html += '<p>&nbsp;</p>'
-                    msg.html += '<p>Es muy importante que tengas en cuenta que por seguridad la contrase&ntilde;a debe cumplir con una serie de requisitos:&nbsp;</p>'
-                    msg.html += '<ul><li>Debe tener al menos 8 caracteres y un m&aacute;ximo de 16.</li><li>Debe contener al menos 1 caracter en may&uacute;scula (A-Z).</li>'
-                    msg.html += '<li>Debe contener al menos 1 caracter en min&uacute;scula (a-z).</li><li>Debe contener al menos 1 caracter num&eacute;rico (0-9).</li><li>Debe contener al menos 1 caracter especial ($,.&lt;&gt;).</li></ul>'
+                    msg.html += ' actualices tu contraseña, para ello en este correo te ponemos un link, para&nbsp; acceder al '
+                    msg.html += ' sitio de cambio de contraseña, hasta que no asignes una no podras '
+                    msg.html += 'disfrutar de esta gran herramienta.<p>'
+                    msg.html += '<p>Es muy importante que tengas en cuenta que por seguridad la contraseña debe cumplir con una serie de requisitos:<p>'
+                    msg.html += '<p>Debe tener al menos 8 caracteres y un máximo de 16.<p>'
+                    msg.html += '<p>Debe contener al menos 1 caracter en mayúscula (A-Z).<p>'
+                    msg.html += '<p>Debe contener al menos 1 caracter en min&uacute;scula (a-z).<p>'
+                    msg.html += '<p>Debe contener al menos 1 caracter num&eacute;rico (0-9).<p>'
+                    msg.html += '<p>Debe contener al menos 1 caracter especial ($,.&lt;&gt;).<p>'
                     msg.html += '<p>Haga clic en el siguiente <a href="http://127.0.0.1:5000/password/'
-                    msg.html += link +'">link </a>  Le deseamos un gran día</p>'
+                    msg.html += link +'">link </a>  Le deseamos un gran día<p>'
                     mail.send(msg)
                 else:
                     sal = 'Error al registrar los datos del usuario'
@@ -205,8 +207,8 @@ def reg_usuario():
             flash(sal)
             forinst = usuario() 
             return redirect(url_for('reg_usuario'))
-    except:
-        pass
+    #except:
+    #    pass
 
 
 @app.route('/actusuario', methods=["GET", "POST"])
