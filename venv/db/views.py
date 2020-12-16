@@ -50,6 +50,39 @@ def existeusuario(correo):
         ans="False"
     return ans 
 
+@db.route('/borrarusuario/<int:iduser>')
+def borrarusuario(iduser):
+    ans = "True"
+    borrado='B'
+    query= "UPDATE usuario SET estado= ? WHERE id = ?" 
+    print(f" SQL: {query}")
+    res = CON.ejecutar_consulta_acc(query,(borrado, iduser))
+    if res==None or len(res)==0:
+        ans = "False"
+    return ans 
+
+@db.route('/actualizarusuario/<int:iduser>/<string:correo>/<string:nombre>/<string:apellido>/<string:celular>/<string:documento>/<string:direccion>')
+def actualizarusuario(iduser, correo, nombre, apellido, celular, documento, direccion):
+    ans = "True"
+    borrado='B'
+    query= f"UPDATE usuario SET correo = ?, nombre = ?, apellido = ?, celular = ?, documento = ?, direccion = ? WHERE id = ?" 
+    print(f" SQL: {query}")
+    res = CON.ejecutar_consulta_acc(query,(correo, nombre, apellido, celular, documento, direccion, iduser))
+    if res==None or len(res)==0:
+        ans = "False"
+    return ans 
+
+@db.route('/inactivarusuario/<int:iduser>')
+def inactivarusuario(iduser):
+    ans = "True"
+    borrado='I'
+    query= "UPDATE usuario SET estado= ? WHERE id = ?" 
+    print(f" SQL: {query}")
+    res = CON.ejecutar_consulta_acc(query,(borrado, iduser))
+    if res==None or len(res)==0:
+        ans = "False"
+    return ans 
+
 @db.route('/genlink/<string:correo>')
 def genlink(correo):
     query= "SELECT id,  estado  FROM usuario WHERE correo = '" +correo + "'"
