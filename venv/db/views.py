@@ -40,15 +40,16 @@ def usuario(id):
 
 @db.route('/existeusuario/<string:correo>')
 def existeusuario(correo):
-    ans = "True"
-    query= f"SELECT count(id) FROM usuario WHERE correo = '{correo}'" 
+    ans = -1
+    query= f"SELECT id FROM usuario WHERE correo = '{correo}'" 
     print(f" SQL: {query}")
     res = CON.ejecutar_consulta_sel(query,None)
+    print(res)
     if res==None or len(res)==0:
-        ans = "False"
-    if res[0][0]==0:
-        ans="False"
-    return ans 
+        ans = -1
+    else:
+        ans=res[0][0]
+    return str(ans) 
 
 @db.route('/borrarusuario/<int:iduser>')
 def borrarusuario(iduser):
@@ -122,6 +123,17 @@ def tipousuario(iduser):
         ans = 'None'
     if res[0][0]==0:
         ans="Usuario"
+    return ans 
+
+@db.route('getCompletName/<int:iduser>')
+def getCompletName(iduser):
+    query= "SELECT nombre, apellido  FROM usuario WHERE  id = "+str(iduser)
+    res = CON.ejecutar_consulta_sel(query,None)
+    print(f'SQL: {query}/n/n result:{res}')
+    if res==None or len(res)==0:
+        ans = 'None'
+    else: 
+        ans= res[0][0]+" "+res[0][1]
     return ans 
 
 @db.route('/actclave/<int:iduser>/<string:clave>')

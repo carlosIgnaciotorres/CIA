@@ -1,6 +1,6 @@
 import hashlib
 import os
-from flask import Flask, render_template, request, redirect, url_for, flash, Blueprint
+from flask import Flask, render_template, request, redirect, url_for, flash, Blueprint, session
 from markupsafe import escape
 from clases import producto, contrasena, usuario, restaurarUsuario
 import conexion
@@ -51,7 +51,7 @@ def recuperar():
             if UT.isEmailValid(user):
                 res = views.existeusuario(user)
                 #print(res)
-                if res=="True":
+                if int(res)>0:
                     #Configuracion del correo 
                     receiver = request.form['correo']
                     sender = "Tienda cia <from@example.com>"
@@ -219,6 +219,13 @@ def mostrar_admin():
     if request.method == 'POST':
         usuario = request.form['usuario']
         password = request.form['password']
+        session.clear()
+        idusr=int(views.existeusuario(usuario))
+        if idusr>0:
+            session['usr_id'] = idusr
+            session['usr_mail'] = usuario
+            session['tipo'] = views.tipousuario(idusr)
+            session['nombre']=views.getCompletName(idusr)
         return render_template('Administrador.html')
     else:
         return render_template('Administrador.html')    
