@@ -7,6 +7,7 @@ import utils as UT
 from flask_mail import Mail, Message
 from db import db, views
 from werkzeug.utils import secure_filename
+import conexion
 
 
 
@@ -210,9 +211,58 @@ def reg_usuario():
     #except:
     #    pass
 
+#Muestra el listado de todos los usuarios registrados en la base de datos
+
+@app.route('/rusuariou', methods=["GET", "POST"])
+def registroU():      
+            query ='SELECT * FROM usuario'
+            sal = conexion.ejecutar_consulta_sel(query)
+            data = sal
+            return render_template('listarusuarios.html', contactos = data)
+
+#Permite editar la información del usuario en el formulario
+@app.route('/edit/<id>')
+def get_contact(id):    
+    
+    query = 'SELECT id, nombre, apellido, documento, correo, direccion, celular FROM usuario WHERE id= ?'
+    res = conexion.ejecutar_consulta_acc(query,(id))
+    data = list(res)
+    
+    return render_template('actUsuario.html', contacto = data[0])
+
+#Actualiza la información en el formulario editado y guarda en la base de datos
+@app.route('/update/<id>', methods=["POST"])
+def actualizar_contacto(id):
+    try:
+        if request.method == 'POST':
+            nombre1 = request.form['nombre']
+            apellido1 = request.form['apellido']
+            documento1 = request.form['documento']
+            correo1 = request.form['correo']
+            direccion1 = request.form['direccion']
+            telefono1 = request.form['celular']
+            query = "UPDATE usuario SET  nombre = ?, apellido = ?, documento = ?, correo = ?, celular = ?,  direccion = ? WHERE id = ?"
+            print(query + '+' + id)
+            con = conexion.ejecutar_consulta_acc(query,(nombre1, apellido1, documento1, correo1, telefono1,  direccion1, id)) 
+            data = con
+            flash('Conctacto actualizado satisfactorialmente')
+            return redirect(url_for('registroU'))
+    except:
+        pass
+#Elimina el registor del usuario en la base de datos
+@app.route('/delete/<string:id>')
+def delete_contact(id):
+    
+    query = 'DELETE FROM usuario WHERE id ={0}'.format(id)
+    sal = conexion.ejecutar_consulta_sel(query)
+    data = sal
+    flash('Contacto removido satisfactorialmente')
+    return redirect(url_for('registroU'))
+
 
 @app.route('/actusuario', methods=["GET", "POST"])
 def act_usuario():
+    
     return render_template('actUsuario.html')
 
 @app.route('/galeria')
@@ -222,6 +272,7 @@ def mostrar_galeria():
 @app.route('/accesorios')
 def mostrar_accesorio():
     return render_template('accesorio.html')
+
 
 @app.route('/admin', methods=['GET', 'POST'])
 def mostrar_admin():

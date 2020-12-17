@@ -19,16 +19,16 @@
           {% endwith %}
 
 
-          <form class="formulario" enctype="multipart/form-data" method='POST'>    
+          <form action="/rusuario" method="POST" class="formulario" >    
 
               <div class="mb-4 ml-3 text-center">
                 <h4>Registro Usuario</h4>
               </div>
 
-              
               <div class="form-group">            
                 <div class="">
-                  {{ form.nombre(class="form-control input-md",placeholder="Nombres",size=32) }}
+                  <!--<input id="nombre" name="nombre" type="text" placeholder="Apellidos" class="form-control input-md" required=""> -->
+                  {{ form.nombre(class="form-control input-md", placeholder="Nombres",size=32) }}
                 </div>
               </div>
               
@@ -36,15 +36,15 @@
               <div class="form-group">
                 <br>
                 <div class="">
-                <!--<input id="apellido" name="apellido" type="text" placeholder="Apellidos" class="form-control input-md" required=""> -->
+                <!--<input id="apellido" name="apellido" type="text" placeholder="Apellidos" class="form-control input-md" required="">  -->
                 {{ form.apellido(class="form-control input-md",placeholder="Apellidos",size=32) }}
                 </div>
               </div>
-              
+           
               <!-- Text input-->
               <div class="form-group">
                 <div class="">
-                <!--<input id="cedula" name="cedula" type="number" placeholder="Identificacion" class="form-control input-md" required="">-->
+                <!--<input id="cedula" name="iden" type="number" placeholder="Identificacion" class="form-control input-md" required="">-->
                 {{ form.ident(class="form-control input-md",placeholder="Identificacion",size=32) }}
                 </div>
               </div>
@@ -55,6 +55,14 @@
                 <div class="">
                 <!--<input id="correo" name="correo" type="email" placeholder="Correo" class="form-control input-md" required="">-->
                 {{ form.correo(class="form-control input-md",placeholder="Correo Electrónico",size=32) }}
+              </div>
+              
+              <!-- Text input-->
+              <div class="form-group">
+                
+                <div class="">
+                <!--<input id="direccion" name="direccion" type="text" placeholder="Direccion" class="form-control input-md" required=""> -->
+                  {{ form.direccion(class="form-control input-md",placeholder="Direccion",size=32) }} 
                 </div>
               </div>
               
@@ -62,17 +70,8 @@
               <div class="form-group">
                 
                 <div class="">
-                <!--<input id="direccion" name="direccion" type="text" placeholder="Direccion" class="form-control input-md" required="">-->
-                  {{ form.direccion(class="form-control input-md",placeholder="Direccion",size=32) }}  
-                </div>
-              </div>
-              
-              <!-- Text input-->
-              <div class="form-group">
-                
-                <div class="">
-                <!--<input id="telefono" name="telefono" type="text" placeholder="Celular" class="form-control input-md" required="">-->
-                  {{ form.celular(class="form-control input-md",placeholder="Número Celular",size=32) }} 
+                <!-- <input id="telefono" name="celular" type="text" placeholder="Celular" class="form-control input-md" required="">-->
+                 {{ form.celular(class="form-control input-md",placeholder="Número Celular",size=32) }} 
                 </div>
               </div>                           
               <!-- Multiple Radios 
@@ -105,25 +104,31 @@
       
     </div>
   </section>
-<!--
+  <br>
   <div class="container">
     <div class="row d-flex justify-content-center">
-        <div class="col-md-7">
-            <table class='table table-striped table-bordered bg-white table-sm'> 
+        <div class="col-md-12 m-0 p-0">
+            <table class='table table-striped table-bordered bg-white table-sm '> 
                 <thead>
                     <tr>
-                        <td>Nombre</td>
+                        <td>Nombres</td>
+                        <td>Apellidos</td>
+                        <td>Documento</td>
+                        <td>Correo electronico</td>
+                        <td>Direccion</td>
                         <td>Telefono</td>
-                        <td>Correo</td>
                         <td>Operaciones</td>
                     </tr>
                 </thead>
                 <tbody>
                     {% for contacto in contactos %}
-                        <tr>
+                        <tr>                              
+                            <td>{{ contacto.0 }}</td>
                             <td>{{ contacto.1 }}</td>
                             <td>{{ contacto.2 }}</td>
                             <td>{{ contacto.3 }}</td>
+                            <td>{{ contacto.4 }}</td>
+                            <td>{{ contacto.5 }}</td>                            
                             <td>
                                 <a href="/edit/{{contacto.0}}" class="btn btn-secondary">Editar</a>
                                 <a href="/delete/{{contacto.0}}" class="btn btn-danger btn-eliminar">Eliminar</a>
@@ -134,7 +139,5 @@
             </table>
         </div>
     </div>
-    </di>
-    </div>
-    -->
+  </di>
 {% endblock %}

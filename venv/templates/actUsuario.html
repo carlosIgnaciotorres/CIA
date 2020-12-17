@@ -4,63 +4,81 @@
 <section class="page-section  p-5">
   <div class="container "  >
       <div class="row d-flex justify-content-center">
-        <div class="col-md-6 bg-white p-5 form1">  
-          <form >       
-              <div class="mb-4 ml-3">
+        <div class="col-md-6 bg-white p-5 form1"> 
+          {% with messages = get_flashed_messages() %}
+          {% if messages %}
+          {% for message in messages %}    
+              <div class="alert alert-primary alert-dismissible fade show text-center" role="alert">
+                  {{ message }}
+                  <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+          {% endfor %}
+          {% endif %}
+          {% endwith %}
+ 
+          <form action="/update/{{contacto.0}}" method="POST">  
+                  
+              <div class="mb-4 ml-3 text-center">
               <h4>Actualización de Usuario</h4>
               </div>
               <div >            
                 <div class="">
-                <input id="nombre" name="nombre" type="text" placeholder="Nombres" class="form-control input-md" required="">
+                  
+               <input id="nombre" name="nombre" type="text" placeholder="Nombres" value="{{ contacto.1 }}"class="form-control input-md" required="">
                 </div>
               </div>
               
-              <!-- Text input-->
+              
               <div class="form-group">
                 <br>
                 <div class="">
-                <input id="apellido" name="apellido" type="text" placeholder="Apellidos" class="form-control input-md" required="">
+                 
+              <input id="apellido" name="apellido" type="text" placeholder="Apellidos" value="{{ contacto.2 }}"class="form-control input-md" required="">
                   
                 </div>
               </div>
               
-              <!-- Text input-->
+               
               <div class="form-group">
                 <div class="">
-                <input id="cedula" name="cedula" type="number" placeholder="Identificacion" class="form-control input-md" required="">
+             
+               <input id="documento" name="documento" type="number" placeholder="Identificacion" value="{{ contacto.3 }}"class="form-control input-md" required="">
                   
                 </div>
               </div>
               
-              <!-- Text input-->
-              <div class="form-group">
-                
-                <div class="">
-                <input id="correo" name="correo" type="email" placeholder="Correo" class="form-control input-md" required="">
-                  
-                </div>
-              </div>
-              
-              <!-- Text input-->
+               
               <div class="form-group">
                 
                 <div class="">
-                <input id="direccion" name="direccion" type="text" placeholder="Direccion" class="form-control input-md" required="">
+                 
+                <input id="correo" name="correo" type="email" placeholder="Correo" value="{{ contacto.4 }}"class="form-control input-md" required="">
                   
                 </div>
               </div>
               
-              <!-- Text input-->
+               
+              <div class="form-group">                
+                <div class="">
+           
+                <input id="direccion" name="direccion" type="text" value="{{ contacto.5 }}"placeholder="Direccion" class="form-control input-md" required="">
+                  
+                </div>
+              </div>
+              
+             
               <div class="form-group">
                 
                 <div class="">
-                <input id="telefono" name="telefono" type="text" placeholder="Celular" class="form-control input-md" required="">
+                  
+                <input id="celular" name="celular" type="text" value="{{ contacto.6 }}"placeholder="Celular" class="form-control input-md" required=""> 
                   
                 </div>
-              </div>
+              </div>            
               
-              
-              <!-- Multiple Radios -->
+               
               <div class="form-group">
                 
                 <div class="">
@@ -82,8 +100,8 @@
               <!-- Button (Double) -->
               <div class="form-group">
                 <div class="">
-                  <button id="crear()" name="crear()" class="btn btn-success">Registrar</button>
-                  <button id="modificar()" name="modificar()" class="btn btn-primary">Modificar</button>
+                  <button type="submit" class="btn btn-primary btn-lg m-3">Actualizar</button> 
+                  <a href="/rusuariou" class="btn btn-success btn-lg m-3">Verificar</a>                 
                 </div>
               </div>   
           </form>

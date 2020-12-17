@@ -12,16 +12,14 @@
     <div class="flex-container">
         <div class="flex-item-left">
             <aside class="sidenav">
-                <h3 class="ml-5 mt-5 text-white">{{ session['tipo'] }}</h3>
-                <p class="ml-5 text-white">{{ session['nombre'] }}</p>
+                <h3 class="ml-5 mt-5 text-white">Administrador</h3>
+                <p class="ml-5 text-white">Pepito Perez</p>
                 <i class="ml-5 mt-5 material-icons" style="font-size:160px;color:white">group</i>
             
                 <ul class="list-group">
                   <li class="list-group-item p-0 m-0 bg-primary"><a href="/admin" class="ml-2">Inicio</a></li>
-                  {% if  session['tipo'] =='Administrador' %}
                   <li class="list-group-item p-0 m-0 bg-primary"><a href="/rusuario" class="ml-2">Registro Usuarios</a></li>
                   <li class="list-group-item p-0 m-0 bg-primary"><a href="/rproducto" class="ml-2">Registro Productos</a></li>
-                  {% endif %}
                   <li class="list-group-item p-0 m-0 bg-primary"><a href="/" class="ml-2">Cerrar Sesión</a></li>      
                 </ul>  
             </aside>
@@ -31,12 +29,13 @@
         <div class="flex-item-right">
             <header class="bg-transparent">       
                 <div class="container ">                      
-                    <div class="d-flex justify-content-center p-4 ">
+                    <div class="d-flex justify-content-center mt-3 ">
                     <div class="">
-                        <a><img src="{{ url_for('static',filename='img/logocia.png') }}" alt="logo-cia-tecnologia" width="150px" ></a>                
+                        <a><img src="{{ url_for('static',filename='img/logocia.png') }}" alt="logo-cia-tecnologia" width="250px" ></a>                
                     </div>                    
-                    <div class="ml-5 ">
-                        <h1 class="text-black">CIA - Control de Inventario de Accesorios</h1>
+                    <div class="ml-5 align-self-center">
+                        <div class="ml-2 ">
+                        <h2 class="text-black">CIA - Control de Inventario de Accesorios</h2>
                         <p class="text-black">Calle 50 N # 20-20 Armenia - Colombia</p>
                     </div>
                     </div>
@@ -81,5 +80,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="{{ url_for('static',filename='js/ap.js') }}"></script>
+    
 </body>
 </html>

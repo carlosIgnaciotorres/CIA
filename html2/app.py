@@ -154,7 +154,7 @@ def act_producto():
         pass
 
 @app.route('/rusuario', methods=["GET", "POST"])
-def reg_usuario():
+def reg_usuario(): 
     try:
         if request.method == 'GET':
             forinst = usuario()  # Una instancia del formulario 
@@ -185,7 +185,6 @@ def reg_usuario():
             return redirect(url_for('reg_usuario'))
     except:
         pass
-
 
 @app.route('/actusuario', methods=["GET", "POST"])
 def act_usuario():

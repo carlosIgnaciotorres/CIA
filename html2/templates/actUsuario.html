@@ -1,38 +1,39 @@
 {% extends 'vista_adm.html' %}
 {% block body %}
 
+
 <section class="page-section  p-5">
   <div class="container "  >
       <div class="row d-flex justify-content-center">
         <div class="col-md-6 bg-white p-5 form1">  
-          <form >       
+          <form action="/actproducto" method="POST">       
               <div class="mb-4 ml-3">
               <h4>Actualización de Usuario</h4>
               </div>
               <div >            
                 <div class="">
-                <input id="nombre" name="nombre" type="text" placeholder="Nombres" class="form-control input-md" required="">
+                <input id="nombre" name="nombre" type="text" placeholder="Nombres"  class="form-control input-md" required="">
                 </div>
               </div>
               
-              <!-- Text input-->
+              
               <div class="form-group">
                 <br>
                 <div class="">
-                <input id="apellido" name="apellido" type="text" placeholder="Apellidos" class="form-control input-md" required="">
+                <input id="apellido" name="apellido" type="text" placeholder="Apellidos"  class="form-control input-md" required="">
                   
                 </div>
               </div>
               
-              <!-- Text input-->
+              
               <div class="form-group">
                 <div class="">
-                <input id="cedula" name="cedula" type="number" placeholder="Identificacion" class="form-control input-md" required="">
+                <input id="ident" name="cedula" type="number" placeholder="Identificacion"  class="form-control input-md" required="">
                   
                 </div>
               </div>
               
-              <!-- Text input-->
+              
               <div class="form-group">
                 
                 <div class="">
@@ -41,26 +42,26 @@
                 </div>
               </div>
               
-              <!-- Text input-->
-              <div class="form-group">
-                
-                <div class="">
-                <input id="direccion" name="direccion" type="text" placeholder="Direccion" class="form-control input-md" required="">
-                  
-                </div>
-              </div>
               
-              <!-- Text input-->
               <div class="form-group">
                 
                 <div class="">
-                <input id="telefono" name="telefono" type="text" placeholder="Celular" class="form-control input-md" required="">
+                <input id="direccion" name="direccion" type="text" placeholder="Direccion"  class="form-control input-md" required="">
                   
                 </div>
               </div>
               
               
-              <!-- Multiple Radios -->
+              <div class="form-group">
+                
+                <div class="">
+                <input id="celular" name="telefono" type="text" placeholder="Celular" class="form-control input-md" required="">
+                  
+                </div>
+              </div>
+              
+              
+             
               <div class="form-group">
                 
                 <div class="">
@@ -79,7 +80,7 @@
                 </div>
               </div>
               
-              <!-- Button (Double) -->
+              
               <div class="form-group">
                 <div class="">
                   <button id="crear()" name="crear()" class="btn btn-success">Registrar</button>
@@ -91,4 +92,5 @@
       </div>
     </div>
   </section>
+
 {% endblock %}
