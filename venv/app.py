@@ -188,7 +188,7 @@ def reg_usuario():
                     msg = Message(saludo, sender = sender, recipients = recipients)
                     # msg.body = U"""Hola hemos recibido una solicitud por parte de este correo para recuperar 
                     #             la clave haga clic en el siguiente link sino ignore este mensaje"""
-                    msg.html='<p>Hola, '+nombreU+' '+apellidoU+' hoy hemos queremos saludarte y darte la bienvenida al'
+                    msg.html='Hola, '+nombreU+' '+apellidoU+' hoy hemos queremos saludarte y darte la bienvenida al'
                     msg.html += ' equipo de CIA, para nosotros es importante que formes parte de nuestro grupo. El siguiente paso es que'
                     msg.html += ' actualices tu contraseña, para ello en este correo te ponemos un link, para&nbsp; acceder al '
                     msg.html += ' sitio de cambio de contraseña, hasta que no asignes una no podras '
