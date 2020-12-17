@@ -178,7 +178,8 @@ def galeria(id):
     #     lista.add(row)
     json_res = json.dumps(res)
     jdecode=json.loads(json_res)
-    return json_res+ "   -   "+ str(len(jdecode)) +" --- "+str(jdecode[3][3])
+    #return json_res+ "   -   "+ str(len(jdecode)) +" --- "+str(jdecode[3][3])
+    return json_res
 
 @db.route('/crearproducto/<string:nombre>/<string:referencia>/<int:cantidad>/<string:nombreImg>')
 def crearproducto(nombre,referencia,cantidad,nombreImg):

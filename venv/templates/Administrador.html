@@ -4,10 +4,10 @@
 <div class="row">
 
   <!-- Grid column -->
-    
+  {% for i in range(tam) %}
   <div class="col-lg-4 col-md-12 mb-4 d-flex justify-content-center">
     <!--Modal: Name-->
-    <div class="modal fade " id="modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade " id="modal{{ i }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-md" role="document">
         <!--Content-->
         <div class="modal-content ">
@@ -15,218 +15,41 @@
           <div class="modal-body mb-0 p-0 ">                                         
             <div class="card-body">
               <div class="mb-3 d-flex justify-content-center">
-                <img class="card-img-top" src="{{ url_for('static',filename='img/airpods9.jpg') }}" alt="Card image" style="width:60%">
+                <img class="card-img-top" src="{{ url_for('static',filename='imagenes/'+contacto[i][3]) }}" alt="Card image" style="width:60%">
               </div>
-                <form action="" >
-                  <input type="text" placeholder="Nombre producto" class="card-title form-control input-md">
-                  <input type="text" placeholder="Referencia" class="card-title form-control input-md">
-                  <input type="text" placeholder="Cantidad" class="card-title form-control input-md">                  
+                <form action="/actproducto/{{ contacto[i][0] }}" >
+                  {% if  session['tipo'] =='Administrador' %}
+                  {{ form.nomPro(value=contacto[i][1], class="card-title form-control input-md") }}
+                  {{ form.refPro(value=contacto[i][2], class="card-title form-control input-md") }}
+                  {% else %}
+                  {{ form.nomPro(value=contacto[i][1], class="card-title form-control input-md", disabled=true) }}
+                  {{ form.refPro(value=contacto[i][2], class="card-title form-control input-md", disabled=true) }}
+                  {% endif %}
+                  {{ form.canPro(value=contacto[i][4], class="card-title form-control input-md") }}
                 </form>          
             </div>
           </div>
           <!--Footer-->
           <div class="modal-footer justify-content-center">
-            <span class="mr-4">Airposds</span>
-            <span class="mr-4">Ref: S8</span>           
-            <button type="button" class="btn btn-outline-success btn-rounded btn-md ml-1" data-dismiss="modal">Editar</button>
-            <button type="button" class="btn btn-outline-danger btn-rounded btn-md ml-1" data-dismiss="modal">Eliminar</button>
-            <button type="button" class="btn btn-outline-warning btn-rounded btn-md ml-1" data-dismiss="modal">Cerrar</button>
+            <span class="mr-4">{{ contacto[i][1] }}</span>
+            <span class="mr-4">{{ contacto[i][2] }}</span>   
+            {{ form.actualizar(class="btn btn-outline-success btn-rounded btn-md ml-1")}}   
+            {% if  session['tipo'] =='Administrador' %}
+            {{ form.borrar(class="btn btn-outline-danger btn-rounded btn-md ml-1")}}   
+            {% endif %}
+                  {{ form.cerrar(class="btn btn-outline-warning btn-rounded btn-md ml-1")}}   
+                 
           </div>
         </div>
         <!--/.Content-->
       </div>
     </div>
     <div class="mb-3">
-        <a><img class="img-fluid z-depth-1" src="{{ url_for('static',filename='img/airpods (1).jpg') }}" 
-        data-toggle="modal" data-target="#modal1"></a>
+        <a><img class="img-fluid z-depth-1" src="{{ url_for('static',filename='imagenes/'+contacto[i][3]) }}" 
+        data-toggle="modal" data-target="#modal{{ i }}"></a>
     </div>
   </div>
-
-  <div class="col-lg-4 col-md-12 mb-4 d-flex justify-content-center">
-    <!--Modal: Name-->
-    <div class="modal fade " id="modal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-md" role="document">
-        <!--Content-->
-        <div class="modal-content ">
-          <!--Body-->
-          <div class="modal-body mb-0 p-0 ">                                         
-            <div class="card-body">
-              <div class="mb-3 d-flex justify-content-center">
-                <img class="card-img-top" src="{{ url_for('static',filename='img/imagen1.jpg') }}" alt="Card image" style="width:60%">
-            </div>  
-              <form action="">
-                  <input type="text" placeholder="Nombre producto" class="card-title form-control input-md">
-                  <input type="text" placeholder="Referencia" class="card-title form-control input-md">
-                  <input type="text" placeholder="Cantidad" class="card-title form-control input-md">                  
-                </form>          
-            </div>
-          </div>
-          <!--Footer-->
-          <div class="modal-footer justify-content-center">
-            <span class="mr-4">Airposds</span>
-            <span class="mr-4">Ref: S8</span>           
-            <button type="button" class="btn btn-outline-success btn-rounded btn-md ml-1" data-dismiss="modal">Editar</button>
-            <button type="button" class="btn btn-outline-danger btn-rounded btn-md ml-1" data-dismiss="modal">Eliminar</button>
-            <button type="button" class="btn btn-outline-warning btn-rounded btn-md ml-1" data-dismiss="modal">Cerrar</button>
-          </div>
-        </div>
-        <!--/.Content-->
-      </div>
-    </div>
-    <div class="">
-        <a><img class="img-fluid z-depth-1" src="{{ url_for('static',filename='img/imagen1.jpg') }}" 
-        data-toggle="modal" data-target="#modal2"></a>
-    </div>
-  </div>
-
-  <div class="col-lg-4 col-md-12 mb-4 d-flex justify-content-center">
-    <!--Modal: Name-->
-    <div class="modal fade " id="modal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-md" role="document">
-        <!--Content-->
-        <div class="modal-content ">
-          <!--Body-->
-          <div class="modal-body mb-0 p-0 ">                                         
-            <div class="card-body">
-              <div class="mb-3 d-flex justify-content-center">
-                <img class="card-img-top" src="{{ url_for('static',filename='img/img05.jpg') }}" alt="Card image" style="width:60%">
-              </div>
-                <form action="">
-                  <input type="text" placeholder="Nombre producto" class="card-title form-control input-md">
-                  <input type="text" placeholder="Referencia" class="card-title form-control input-md">
-                  <input type="text" placeholder="Cantidad" class="card-title form-control input-md">                  
-                </form>          
-            </div>
-          </div>
-          <!--Footer-->
-          <div class="modal-footer justify-content-center">
-            <span class="mr-4">Airposds</span>
-            <span class="mr-4">Ref: S8</span>           
-            <button type="button" class="btn btn-outline-success btn-rounded btn-md ml-1" data-dismiss="modal">Editar</button>
-            <button type="button" class="btn btn-outline-danger btn-rounded btn-md ml-1" data-dismiss="modal">Eliminar</button>
-            <button type="button" class="btn btn-outline-warning btn-rounded btn-md ml-1" data-dismiss="modal">Cerrar</button>
-          </div>
-        </div>
-        <!--/.Content-->
-      </div>
-    </div>
-    <div class="">
-        <a><img class="img-fluid z-depth-1" src="{{ url_for('static',filename='img/img05.jpg') }}" 
-        data-toggle="modal" data-target="#modal3"></a>
-    </div>
-  </div>
-
-  <div class="col-lg-4 col-md-12 mb-4 d-flex justify-content-center">
-    <!--Modal: Name-->
-    <div class="modal fade " id="modal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-md" role="document">
-        <!--Content-->
-        <div class="modal-content ">
-          <!--Body-->
-          <div class="modal-body mb-0 p-0 ">                                         
-            <div class="card-body">
-              <div class="mb-3 d-flex justify-content-center">
-                <img class="card-img-top" src="{{ url_for('static',filename='img/img02.jpg') }}" alt="Card image" style="width:60%">
-              </div>
-                <form action="">
-                  <input type="text" placeholder="Nombre producto" class="card-title form-control input-md">
-                  <input type="text" placeholder="Referencia" class="card-title form-control input-md">
-                  <input type="text" placeholder="Cantidad" class="card-title form-control input-md">                  
-                </form>          
-            </div>
-          </div>
-          <!--Footer-->
-          <div class="modal-footer justify-content-center">
-            <span class="mr-4">Airposds</span>
-            <span class="mr-4">Ref: S8</span>           
-            <button type="button" class="btn btn-outline-success btn-rounded btn-md ml-1" data-dismiss="modal">Editar</button>
-            <button type="button" class="btn btn-outline-danger btn-rounded btn-md ml-1" data-dismiss="modal">Eliminar</button>
-            <button type="button" class="btn btn-outline-warning btn-rounded btn-md ml-1" data-dismiss="modal">Cerrar</button>
-          </div>
-        </div>
-        <!--/.Content-->
-      </div>
-    </div>
-    <div class="">
-        <a><img class="img-fluid z-depth-1" src="{{ url_for('static',filename='img/img02.jpg') }}" 
-        data-toggle="modal" data-target="#modal4"></a>
-    </div>
-  </div>
-
-  <div class="col-lg-4 col-md-12 mb-4 d-flex justify-content-center">
-    <!--Modal: Name-->
-    <div class="modal fade " id="modal5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-md" role="document">
-        <!--Content-->
-        <div class="modal-content ">
-          <!--Body-->
-          <div class="modal-body mb-0 p-0 ">                                         
-            <div class="card-body">
-              <div class="mb-3 d-flex justify-content-center">
-                <img class="card-img-top" src="{{ url_for('static',filename='img/img06.jpg') }}" alt="Card image" style="width:60%">
-            </div>
-                <form action="">
-                  <input type="text" placeholder="Nombre producto" class="card-title form-control input-md">
-                  <input type="text" placeholder="Referencia" class="card-title form-control input-md">
-                  <input type="text" placeholder="Cantidad" class="card-title form-control input-md">                  
-                </form>          
-            </div>
-          </div>
-          <!--Footer-->
-          <div class="modal-footer justify-content-center">
-            <span class="mr-4">Airposds</span>
-            <span class="mr-4">Ref: S8</span>           
-            <button type="button" class="btn btn-outline-success btn-rounded btn-md ml-1" data-dismiss="modal">Editar</button>
-            <button type="button" class="btn btn-outline-danger btn-rounded btn-md ml-1" data-dismiss="modal">Eliminar</button>
-            <button type="button" class="btn btn-outline-warning btn-rounded btn-md ml-1" data-dismiss="modal">Cerrar</button>
-          </div>
-        </div>
-        <!--/.Content-->
-      </div>
-    </div>
-    <div class="">
-        <a><img class="img-fluid z-depth-1" src="{{ url_for('static',filename='img/img06.jpg') }}" 
-        data-toggle="modal" data-target="#modal5"></a>
-    </div>
-  </div>
-
-  <div class="col-lg-4 col-md-12 mb-4 d-flex justify-content-center">
-    <!--Modal: Name-->
-    <div class="modal fade " id="modal6" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-md" role="document">
-        <!--Content-->
-        <div class="modal-content ">
-          <!--Body-->
-          <div class="modal-body mb-0 p-0 ">                                         
-            <div class="card-body">
-              <div class="mb-3 d-flex justify-content-center">
-                <img class="card-img-top" src="{{ url_for('static',filename='img/imagen5.jpg') }}" alt="Card image" style="width:60%">
-              </div>              
-                <form action="">
-                  <input type="text" placeholder="Nombre producto" class="card-title form-control input-md">
-                  <input type="text" placeholder="Referencia" class="card-title form-control input-md">
-                  <input type="text" placeholder="Cantidad" class="card-title form-control input-md">                  
-                </form>          
-            </div>
-          </div>
-          <!--Footer-->
-          <div class="modal-footer justify-content-center">
-            <span class="mr-4">Airposds</span>
-            <span class="mr-4">Ref: S8</span>           
-            <button type="button" class="btn btn-outline-success btn-rounded btn-md ml-1" data-dismiss="modal">Editar</button>
-            <button type="button" class="btn btn-outline-danger btn-rounded btn-md ml-1" data-dismiss="modal">Eliminar</button>
-            <button type="button" class="btn btn-outline-warning btn-rounded btn-md ml-1" data-dismiss="modal">Cerrar</button>
-          </div>
-        </div>
-        <!--/.Content-->
-      </div>
-    </div>
-    <div class="">
-        <a><img class="img-fluid z-depth-1" src="{{ url_for('static',filename='img/imagen5.jpg') }}" 
-        data-toggle="modal" data-target="#modal6"></a>
-    </div>
-  </div>
-
+  {% endfor %}
 </div>
 
 

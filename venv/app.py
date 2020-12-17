@@ -8,6 +8,7 @@ from flask_mail import Mail, Message
 from db import db, views
 from werkzeug.utils import secure_filename
 import conexion
+import json
 
 
 
@@ -22,8 +23,9 @@ app.config['MAIL_USERNAME'] = 'ba65810f63f0c4'
 app.config['MAIL_PASSWORD'] = '40c5ceef016106'
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False  """
-
-app.config['UPLOAD_FOLDER']="./imagenes"
+app.add_url_rule('/imagenes/<path:filename>', endpoint='imagenes',
+                 view_func=app.send_static_file)
+app.config['UPLOAD_FOLDER']="./static/imagenes"
 app.config['MAIL_SERVER']='smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USERNAME'] = 'ciatienda.cia@gmail.com'
@@ -127,20 +129,24 @@ def reg_producto():
     #except:
     #    pass
 
-@app.route('/actproducto', methods=["GET", "POST"])
-def act_producto():
-    try:
+@app.route('/actproducto/<int:idproducto>', methods=["GET", "POST"])
+def act_producto(idproducto):
+    #try:
         if request.method=='GET':
+            data=views.galeria(int(idproducto))
+            jdata=json.loads(data)
+            print("Estoy aquí     "+jdata[0])
+
             inst = producto() 
-            return render_template('accesorio.html',form=inst)
+            return render_template('Administrador.html',form=inst,contacto = jdata[0] )
         else:
+            print("Estoy entrando por POST     ")
             nomP = escape(request.form['nomPro'])
             refP = escape(request.form['refPro'])
             canP = escape(request.form['canPro'])
             # imP = request.files['imPro']
             # filename = secure_filename(imP.filename)
             # imP.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            imP="imagen1.jpg"
             familia=1
             estado='A'
             idpro = 3 
@@ -156,8 +162,8 @@ def act_producto():
             flash(sal)
             inst = producto()  # Una instancia del formulario 
             return redirect(url_for('admin'))
-    except:
-        pass
+    #except:
+    #    pass
 
 @app.route('/rusuario', methods=["GET", "POST"])
 def reg_usuario():
@@ -287,12 +293,24 @@ def mostrar_admin():
             session['usr_mail'] = usuario
             session['tipo'] = views.tipousuario(idusr)
             session['nombre']=views.getCompletName(idusr)
-            return render_template('Administrador.html')
+            inst = producto() 
+
+            data=views.galeria(0)
+            jdata=json.loads(data)
+            tamano=len(jdata)
+            print("Me apuesto una-----")
+            print(jdata)
+            return render_template('Administrador.html',form=inst, contacto = jdata, tam=tamano)
         else:
             flash('Datos Invalidos') 
             return render_template('login.html')
     else:
-        return render_template('Administrador.html')    
+        data=views.galeria(0)
+        jdata=json.loads(data)
+        tamano=len(jdata)
+            #print("Estoy aquí     "+jdata[0])
+        inst = producto() 
+        return render_template('Administrador.html',form=inst,contacto = jdata, tam=tamano)    
 
 if __name__ == "__main__":   
    app.run(port=5000, debug=True)
