@@ -4,16 +4,6 @@ import  conexion as CON
 import json
 from datetime import datetime
 
-@db.route('/producto/<int:id>')
-def galeria(id):
-    query= "SELECT id, nombre, referencia, imagen, cantidad FROM producto WHERE estado = 'A'"
-    if int(id) > 0:
-        query = query + ' and id = '+ str(id)
-        res = CON.ejecutar_consulta_sel(query, None)
-    else:
-        res = CON.ejecutar_consulta_sel(query, None)
-    json_res = json.dumps(res)
-    return json_res
 
 @db.route('/crearusuario/<string:nombre>/<string:apellido>/<string:documento>/<string:correo>/<string:direccion>/<string:celular>')
 def crearusuario(nombre, apellido,documento,correo,direccion,celular):
@@ -45,6 +35,23 @@ def usuario(id):
 def existeusuario(correo):
     ans = -1
     query= f"SELECT id FROM usuario WHERE correo = '{correo}'" 
+    print(f" SQL: {query}")
+    res = CON.ejecutar_consulta_sel(query,None)
+    print(res)
+    if res==None or len(res)==0:
+        ans = -1
+    else:
+        ans=res[0][0]
+    return str(ans) 
+
+@db.route('/loginusuario/<string:correo>/<string:clave>')
+def loginusuario(correo,clave):
+    ans = -1
+    rpt = hashlib.md5(clave.encode())
+    pwd = rpt.hexdigest()
+    pwd[::-1]
+    estado="A"
+    query= f"SELECT id FROM usuario WHERE correo = '{correo}' and clave ='{pwd}' and not estado='I' " 
     print(f" SQL: {query}")
     res = CON.ejecutar_consulta_sel(query,None)
     print(res)
@@ -143,6 +150,7 @@ def getCompletName(iduser):
 def actclave(userid,clave):
     rpt = hashlib.md5(clave.encode())
     pwd = rpt.hexdigest()
+    pwd[::-1]
     estado="A"
     query= "UPDATE usuario set clave = ? , estado = ? WHERE id = ?"
     res = CON.ejecutar_consulta_acc(query,(pwd, estado , int(userid)))
@@ -151,6 +159,26 @@ def actclave(userid,clave):
     else:   #else res
         ans= 'Error al registrar los datos'
     return ans
+
+@db.route('/producto/<int:id>')
+def galeria(id):
+    query= "SELECT id, nombre, referencia, imagen, cantidad FROM producto WHERE estado = 'A'"
+    lista=[]
+    if int(id) > 0:
+        query = query + ' and id = '+ str(id)
+        res = CON.ejecutar_consulta_sel(query, None)
+    else:
+        res = CON.ejecutar_consulta_sel(query, None)
+        count=0
+    """ for row in res:
+        lista[count]=[row]
+        count+=1 """
+    
+    # for (row in res):
+    #     lista.add(row)
+    json_res = json.dumps(res)
+    jdecode=json.loads(json_res)
+    return json_res+ "   -   "+ str(len(jdecode)) +" --- "+str(jdecode[3][3])
 
 @db.route('/crearproducto/<string:nombre>/<string:referencia>/<int:cantidad>/<string:nombreImg>')
 def crearproducto(nombre,referencia,cantidad,nombreImg):
@@ -176,3 +204,14 @@ def borrarProducto(idproducto):
         sal = 'False'
     return sal
     
+@db.route('/actualizarproducto/<int:idproducto>/<string:nombre>/<string:referencia>/<int:cantidad>/<string:nombreImg>')
+def actualizarproducto(nombre,referencia,cantidad,nombreImg):
+    familia=1
+    estado='A'
+    query = "UPDATE  producto set nombre=?, referencia=?, cantidad=?, imagen=? WHERE id=?"
+    res = CON.ejecutar_consulta_acc(query,(nombre, referencia, cantidad, nombreImg, id))
+    if res!=None:
+        sal = 'Datos actualizados con éxito'
+    else:
+        sal = 'Error al registrar los datos'
+    return sal

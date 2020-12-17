@@ -15,7 +15,7 @@ app = Flask(__name__)
 app.secret_key = os.urandom(24)
 app.register_blueprint(db)
 #mail= Mail(app)
-""" app.config['UPLOAD_FOLDER']="./imagenes"
+""" 
 app.config['MAIL_SERVER']='smtp.mailtrap.io'
 app.config['MAIL_PORT'] = 2525
 app.config['MAIL_USERNAME'] = 'ba65810f63f0c4'
@@ -23,6 +23,7 @@ app.config['MAIL_PASSWORD'] = '40c5ceef016106'
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False  """
 
+app.config['UPLOAD_FOLDER']="./imagenes"
 app.config['MAIL_SERVER']='smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USERNAME'] = 'ciatienda.cia@gmail.com'
@@ -65,7 +66,7 @@ def recuperar():
                     #             la clave haga clic en el siguiente link sino ignore este mensaje"""
                     msg.html='<p>Hola hemos recibido una solicitud por parte de este correo para recuperar'
                     msg.html += 'la clave, haga clic en el siguiente <a href="http://127.0.0.1:5000/password/'
-                    msg.html += link +'">link </a>  sino fue usted ignore este mensaje<p>'
+                    msg.html += str(res)+"/"+link +'">link </a>  sino fue usted ignore este mensaje<p>'
                     mail.send(msg)
                     #Envio link
                 else:   
@@ -77,8 +78,8 @@ def recuperar():
     #except:
     #    pass
 
-@app.route('/password/<string:link>', methods=['GET', 'POST'])
-def add_password(link):
+@app.route('/password/<int:iduser>/<string:link>', methods=['GET', 'POST'])
+def add_password(iduser,link):
     try:
         if request.method=='POST':
             pws = escape(request.form['pws'])
@@ -86,7 +87,7 @@ def add_password(link):
             if UT.isPasswordValid(pws):
                 if UT.isPasswordValid(conf):
                     if pws==conf:
-                        iduser=1
+                        iduser=iduser
                         res=views.actclave(iduser,pws)
                         flash(res)
                     else: #diferente pws y conf
@@ -102,7 +103,7 @@ def add_password(link):
 
 @app.route('/rproducto', methods=['GET', 'POST'])
 def reg_producto():
-    try:
+    #try:
         if request.method=='GET':
             inst = producto()  # Una instancia del formulario 
             return render_template('registroproducto.html',form=inst)
@@ -123,8 +124,8 @@ def reg_producto():
             flash(sal)
             inst = producto()  # Una instancia del formulario 
             return redirect(url_for('reg_producto'))
-    except:
-        pass
+    #except:
+    #    pass
 
 @app.route('/actproducto', methods=["GET", "POST"])
 def act_producto():
@@ -191,15 +192,15 @@ def reg_usuario():
                     msg.html += ' equipo de CIA, para nosotros es importante que formes parte de nuestro grupo. El siguiente paso es que'
                     msg.html += ' actualices tu contraseña, para ello en este correo te ponemos un link, para&nbsp; acceder al '
                     msg.html += ' sitio de cambio de contraseña, hasta que no asignes una no podras '
-                    msg.html += 'disfrutar de esta gran herramienta.<p>'
-                    msg.html += '<p>Es muy importante que tengas en cuenta que por seguridad la contraseña debe cumplir con una serie de requisitos:<p>'
-                    msg.html += '<p>Debe tener al menos 8 caracteres y un máximo de 16.<p>'
-                    msg.html += '<p>Debe contener al menos 1 caracter en mayúscula (A-Z).<p>'
-                    msg.html += '<p>Debe contener al menos 1 caracter en min&uacute;scula (a-z).<p>'
-                    msg.html += '<p>Debe contener al menos 1 caracter num&eacute;rico (0-9).<p>'
-                    msg.html += '<p>Debe contener al menos 1 caracter especial ($,.&lt;&gt;).<p>'
-                    msg.html += '<p>Haga clic en el siguiente <a href="http://127.0.0.1:5000/password/'
-                    msg.html += link +'">link </a>  Le deseamos un gran día<p>'
+                    msg.html += 'disfrutar de esta gran herramienta.'
+                    msg.html += 'Es muy importante que tengas en cuenta que por seguridad la contraseña debe cumplir con una serie de requisitos:'
+                    msg.html += 'Debe tener al menos 8 caracteres y un máximo de 16.'
+                    msg.html += 'Debe contener al menos 1 caracter en mayúscula (A-Z).'
+                    msg.html += 'Debe contener al menos 1 caracter en min&uacute;scula (a-z).'
+                    msg.html += 'Debe contener al menos 1 caracter num&eacute;rico (0-9).'
+                    msg.html += 'Debe contener al menos 1 caracter especial ($,.&lt;&gt;).'
+                    msg.html += 'Haga clic en el siguiente <a href="http://127.0.0.1:5000/password/'
+                    msg.html += str(res)+"/"+link +'">link </a>  Le deseamos un gran día<p>'
                     mail.send(msg)
                 else:
                     sal = 'Error al registrar los datos del usuario'
@@ -280,13 +281,16 @@ def mostrar_admin():
         usuario = request.form['usuario']
         password = request.form['password']
         session.clear()
-        idusr=int(views.existeusuario(usuario))
+        idusr=int(views.loginusuario(usuario,password))
         if idusr>0:
             session['usr_id'] = idusr
             session['usr_mail'] = usuario
             session['tipo'] = views.tipousuario(idusr)
             session['nombre']=views.getCompletName(idusr)
-        return render_template('Administrador.html')
+            return render_template('Administrador.html')
+        else:
+            flash('Datos Invalidos') 
+            return render_template('login.html')
     else:
         return render_template('Administrador.html')    
 
