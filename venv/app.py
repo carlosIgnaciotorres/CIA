@@ -155,7 +155,7 @@ def act_producto():
                 sal="Cantidad invalida"
             flash(sal)
             inst = producto()  # Una instancia del formulario 
-            return redirect(url_for('act_producto'))
+            return redirect(url_for('admin'))
     except:
         pass
 

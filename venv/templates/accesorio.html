@@ -1,36 +1,39 @@
 {% extends 'vista_adm.html' %}
 {% block body %}
-<body>
+
     <div class="container">
-      <div class="card" style="width:35%">
-        <!-- Acá debe referirse a la carpeta static-->
-        <img class="card-img-top" src="{{ url_for('static',filename='img/imagen7.jpeg') }}" alt="Card image" style="width:100%">
-        <div class="card-body">
-          <!-- Inicia con h4 y cierra con h2-->
-          <form method="POST">
-              {% with messages = get_flashed_messages() %}
-              {% if messages %}
-              {% for message in messages %}    
-                  <div class="alert alert-primary alert-dismissible fade show text-center" role="alert">
-                      {{ message }}
-                      <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                      </button>
-                  </div>
-              {% endfor %}
-              {% endif %}
-              {% endwith %}
-              <h4 class="card-title">{{ form.nomPro(class="form-control input-md",placeholder="Nombre Producto",size=32) }}</h4>
-              <p class="card-text"> {{ form.refPro(class="form-control input-md",placeholder="Referencia Producto",size=32) }}</p>
-              <p class="card-text">{{ form.canPro(class="form-control input-md",placeholder="Cantidad",type="number") }}</p>
-              <!-- <p class="card-text">{{ form.imPro(class="btn btn-primary btn-sm", type="file") }}</p> -->
-              {{ form.actualizar(class="btn btn-success") }}
-              {{ form.borrar(class="btn btn-warning") }}
-              {{ form.cerrar(class="btn btn btn-danger") }}
-      
-          </form>
+      <div class="row d-flex justify-content-center">
+        <div class="col-md-6 bg-white p-5 form1">  
+          <div class="card" >
+            <!-- Acá debe referirse a la carpeta static-->
+            <img class="card-img-top" src="{{ url_for('static',filename='img/imagen7.jpeg') }}" alt="Card image" style="width:100%">
+            <div class="card-body">
+              <!-- Inicia con h4 y cierra con h2-->
+              <form method="POST">
+                  {% with messages = get_flashed_messages() %}
+                  {% if messages %}
+                  {% for message in messages %}    
+                      <div class="alert alert-primary alert-dismissible fade show text-center" role="alert">
+                          {{ message }}
+                          <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                      </div>
+                  {% endfor %}
+                  {% endif %}
+                  {% endwith %}
+                  <h4 class="card-title">{{ form.nomPro(class="form-control input-md",placeholder="Nombre Producto",size=32) }}</h4>
+                  <p class="card-text"> {{ form.refPro(class="form-control input-md",placeholder="Referencia Producto",size=32) }}</p>
+                  <p class="card-text">{{ form.canPro(class="form-control input-md",placeholder="Cantidad",type="number") }}</p>
+                  <!-- <p class="card-text">{{ form.imPro(class="btn btn-primary btn-sm", type="file") }}</p> -->
+                  {{ form.actualizar(class="btn btn-success") }}
+                  {{ form.borrar(class="btn btn-warning") }}
+                  {{ form.cerrar(class="btn btn btn-danger") }}
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-</body>
+
 {% endblock %}
