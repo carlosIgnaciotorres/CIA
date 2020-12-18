@@ -120,11 +120,11 @@ def reg_producto():
             canP = escape(request.form['canPro'])
             imP = request.files['imPro']
             fecha =  datetime.now()
-            filename = str(fecha)+secure_filename(imP.filename)
+            farchivo = fecha.strftime('%Y%m%d%H%M%S')
+            filename = farchivo+secure_filename(imP.filename)
             imP.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             familia=1
             estado='A'
-            #FALTA SUBIR LA IMAGEN AL DRIVE Y SACAR LA RUTA
             if int(canP)>=0:
                 sal= views.crearproducto(nomP,refP,canP,filename)
             else:
@@ -134,6 +134,7 @@ def reg_producto():
             return redirect(url_for('reg_producto'))
     except:
         pass
+
 @app.route('/borrarproducto/<int:idproducto>',methods=["GET"])
 def borrarproducto(idproducto):
     #try:
