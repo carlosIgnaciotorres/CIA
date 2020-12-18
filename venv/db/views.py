@@ -206,22 +206,28 @@ def crearproducto(nombre,referencia,cantidad,nombreImg):
 
 @db.route('/borrarProducto/<int:idproducto>')
 def borrarProducto(idproducto):
-    familia=1
-    estado='A'
-    query = "UPDATE  producto set estado ='I' WHERE id = ?"
-    res = CON.ejecutar_consulta_acc(query,( int(idproducto)))
+    query = f"UPDATE  producto set estado ='I' WHERE id = {idproducto}"
+    res = CON.ejecutar_consulta_acc(query, None)
     if res!=None:
-        sal = 'True'
+        sal = 'El producto fue borrado Correctamente'
     else:
-        sal = 'False'
+        sal = 'El producto no se pudo Borrar'
     return sal
     
-@db.route('/actualizarproducto/<int:idproducto>/<string:nombre>/<string:referencia>/<int:cantidad>/<string:nombreImg>')
-def actualizarproducto(nombre,referencia,cantidad,nombreImg):
-    familia=1
-    estado='A'
-    query = "UPDATE  producto set nombre=?, referencia=?, cantidad=?, imagen=? WHERE id=?"
-    res = CON.ejecutar_consulta_acc(query,(nombre, referencia, cantidad, nombreImg, id))
+@db.route('/actualizarproducto/<int:idproducto>/<string:nombre>/<string:referencia>/<int:cantidad>')
+def actualizarproducto(idproducto, nombre,referencia,cantidad):
+    query = "UPDATE  producto set nombre=?, referencia=?, cantidad=?  WHERE id=?"
+    res = CON.ejecutar_consulta_acc(query,(nombre, referencia, cantidad,  idproducto))
+    if res!=None:
+        sal = 'Datos actualizados con éxito'
+    else:
+        sal = 'Error al registrar los datos'
+    return sal
+        
+@db.route('/actualizarcantidad/<int:idproducto>/<int:cantidad>')
+def actualizarcantidad(idproducto, cantidad):
+    query = "UPDATE  producto set cantidad=?  WHERE id=?"
+    res = CON.ejecutar_consulta_acc(query,( cantidad,  idproducto))
     if res!=None:
         sal = 'Datos actualizados con éxito'
     else:

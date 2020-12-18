@@ -110,7 +110,7 @@ def add_password(iduser,link):
 
 @app.route('/rproducto', methods=['GET', 'POST'])
 def reg_producto():
-    #try:
+    try:
         if request.method=='GET':
             inst = producto()  # Una instancia del formulario 
             return render_template('registroproducto.html',form=inst)
@@ -132,12 +132,31 @@ def reg_producto():
             flash(sal)
             inst = producto()  # Una instancia del formulario 
             return redirect(url_for('reg_producto'))
-    #except:
+    except:
+        pass
+@app.route('/borrarproducto/<int:idproducto>',methods=["GET"])
+def borrarproducto(idproducto):
+    #try:
+        sal=views.borrarProducto(idproducto)
+        flash(sal)
+        if "buscar" in request.form:
+            buscar = request.form['buscar']
+            data=views.galeriacomo(buscar)
+        else:
+            data=views.galeria(0)
+        jdata=json.loads(data)
+        tamano=len(jdata)
+            #print("Estoy aquí     "+jdata[0])
+        inst = producto() 
+        return render_template('Administrador.html',form=inst,contacto = jdata, tam=tamano)
+    #except :
     #    pass
+
+
 
 @app.route('/actproducto/<int:idproducto>', methods=["GET", "POST"])
 def act_producto(idproducto):
-    #try:
+    try:
         if request.method=='GET':
             data=views.galeria(int(idproducto))
             jdata=json.loads(data)
@@ -146,8 +165,9 @@ def act_producto(idproducto):
             return render_template('Administrador.html',form=inst,contacto = jdata, tam=tamano)
         else:
             print("Estoy entrando por POST     ")
-            nomP = escape(request.form['nomPro'])
-            refP = escape(request.form['refPro'])
+            if session['tipo'] =="Administrador":
+                nomP = escape(request.form['nomPro'])
+                refP = escape(request.form['refPro'])
             canP = escape(request.form['canPro'])
             # imP = request.files['imPro']
             # filename = secure_filename(imP.filename)
@@ -156,19 +176,25 @@ def act_producto(idproducto):
             estado='A'
             idpro = 3 
             if int(canP)>=0:
-                query= "UPDATE producto set nombre = ? , referencia = ? , cantidad = ? , imagen = ? , familia = ? , estado = ? WHERE id = ?"
-                res = conexion.ejecutar_consulta_acc(query,(nomP, refP, canP, imP, familia, estado, idpro))
-                if res!=None:
-                    sal = 'Actualización exitosa'
+                if session['tipo'] =="Administrador": 
+                    sal=views.actualizarproducto(int(idproducto),nomP,refP,canP)
                 else:
-                    sal = 'Error al actualizar los datos'
+                    sal=views.actualizarcantidad(int(idproducto),canP)
             else:
                 sal="Cantidad invalida"
             flash(sal)
-            inst = producto()  # Una instancia del formulario 
-            return redirect(url_for('admin'))
-    #except:
-    #    pass
+            if "buscar" in request.form:
+                buscar = request.form['buscar']
+                data=views.galeriacomo(buscar)
+            else:
+                data=views.galeria(0)
+            jdata=json.loads(data)
+            tamano=len(jdata)
+                #print("Estoy aquí     "+jdata[0])
+            inst = producto() 
+            return render_template('Administrador.html',form=inst,contacto = jdata, tam=tamano)
+    except:
+        pass
 
 @app.route('/rusuario', methods=["GET", "POST"])
 def reg_usuario():
@@ -187,6 +213,7 @@ def reg_usuario():
             if int(identU)>=0:
                 res = views.crearusuario(nombreU, apellidoU, identU, correoU, direccionU, celularU)
                 if res=="True":
+                    iduser = views.existeusuario(correoU)
                     sal = 'Usuario agregado satisfactoriamente'
                     #Configuracion del correo 
                     receiver = request.form['correo']
@@ -210,8 +237,8 @@ def reg_usuario():
                     msg.html += 'Debe contener al menos 1 caracter en min&uacute;scula (a-z).'
                     msg.html += 'Debe contener al menos 1 caracter num&eacute;rico (0-9).'
                     msg.html += 'Debe contener al menos 1 caracter especial ($,.&lt;&gt;).'
-                    msg.html += 'Haga clic en el siguiente <a href="http://127.0.0.1:5000/password/'
-                    msg.html += str(res)+"/"+link +'">link </a>  Le deseamos un gran día<p>'
+                    msg.html += 'Copie el siguiente link y peguelo en su navegador http://127.0.0.1:5000/password/'
+                    msg.html += str(iduser)+'/'+link +'. El equipo de CIA, le deseamos un gran día'
                     mail.send(msg)
                 else:
                     sal = 'Error al registrar los datos del usuario'
@@ -319,7 +346,7 @@ def mostrar_admin():
         else:
             data=views.galeria(0)
         jdata=json.loads(data)
-        tamano=len(data)
+        tamano=len(jdata)
             #print("Estoy aquí     "+jdata[0])
         inst = producto() 
         return render_template('Administrador.html',form=inst,contacto = jdata, tam=tamano)    
