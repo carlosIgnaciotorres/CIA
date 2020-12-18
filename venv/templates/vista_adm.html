@@ -53,8 +53,10 @@
                                 <div class="input-group-prepend border-0">
                                     <button id="button-addon4" type="button" class="btn btn-link text-info"><i class="fa fa-search"></i></button>
                                 </div> 
-                                <div>                                                                     
-                                    <input type="search" placeholder="Buscar..." aria-describedby="button-addon4" class="form-control bg-none border-0">
+                                <div>       
+                                    <form method="POST" action="/admin">                                                             
+                                        <input id="buscar" name="buscar" type="search" placeholder="Buscar..." aria-describedby="button-addon4" class="form-control bg-none border-0">
+                                    </form> 
                                 </div>
                             </div>
                         </div>

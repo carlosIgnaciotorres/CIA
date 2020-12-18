@@ -181,6 +181,17 @@ def galeria(id):
     #return json_res+ "   -   "+ str(len(jdecode)) +" --- "+str(jdecode[3][3])
     return json_res
 
+@db.route('/productocomo/<string:dato>')
+def galeriacomo(dato):
+    dato='%'+dato+'%'
+    query= "SELECT id, nombre, referencia, imagen, cantidad FROM producto WHERE estado = 'A' and (nombre like ? or referencia like ?)"
+    lista=[]
+    res = CON.ejecutar_consulta_sel(query, (dato,dato))
+    json_res = json.dumps(res)
+    jdecode=json.loads(json_res)
+    #return json_res+ "   -   "+ str(len(jdecode)) +" --- "+str(jdecode[3][3])
+    return json_res
+
 @db.route('/crearproducto/<string:nombre>/<string:referencia>/<int:cantidad>/<string:nombreImg>')
 def crearproducto(nombre,referencia,cantidad,nombreImg):
     familia=1

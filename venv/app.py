@@ -37,7 +37,8 @@ mail= Mail(app)
 
 @app.route('/', methods=['GET', 'POST'])
 def Index():    
-        return render_template('login.html')
+    session.clear()
+    return render_template('login.html')
 
 @app.route('/vista', methods=['GET', 'POST'])
 def agregar_vista():
@@ -288,30 +289,37 @@ def mostrar_accesorio():
 @app.route('/admin', methods=['GET', 'POST'])
 def mostrar_admin():
     if request.method == 'POST':
-        usuario = request.form['usuario']
-        password = request.form['password']
-        session.clear()
-        idusr=int(views.loginusuario(usuario,password))
-        if idusr>0:
-            session['usr_id'] = idusr
-            session['usr_mail'] = usuario
-            session['tipo'] = views.tipousuario(idusr)
-            session['nombre']=views.getCompletName(idusr)
-            inst = producto() 
-
-            data=views.galeria(0)
-            jdata=json.loads(data)
-            tamano=len(jdata)
-            print("Me apuesto una-----")
-            print(jdata)
-            return render_template('Administrador.html',form=inst, contacto = jdata, tam=tamano)
+        if not 'usr_id' in session:
+            session.clear()
+            usuario = request.form['usuario']
+            password = request.form['password']
+            idusr=int(views.loginusuario(usuario,password))
+            if idusr>0:
+                session['usr_id'] = idusr
+                session['usr_mail'] = usuario
+                session['tipo'] = views.tipousuario(idusr)
+                session['nombre']=views.getCompletName(idusr)
+            else:
+                flash('Datos Invalidos') 
+                return render_template('login.html')
+        inst = producto() 
+        if "buscar" in request.form:
+            buscar = request.form['buscar']
+            data=views.galeriacomo(buscar)
         else:
-            flash('Datos Invalidos') 
-            return render_template('login.html')
-    else:
-        data=views.galeria(0)
+            data=views.galeria(0)
         jdata=json.loads(data)
         tamano=len(jdata)
+        return render_template('Administrador.html',form=inst, contacto = jdata, tam=tamano)
+        
+    else:
+        if "buscar" in request.form:
+            buscar = request.form['buscar']
+            data=views.galeriacomo(buscar)
+        else:
+            data=views.galeria(0)
+        jdata=json.loads(data)
+        tamano=len(data)
             #print("Estoy aquí     "+jdata[0])
         inst = producto() 
         return render_template('Administrador.html',form=inst,contacto = jdata, tam=tamano)    
