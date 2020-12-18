@@ -70,6 +70,7 @@ def recuperar():
                     msg.html += 'la clave, haga clic en el siguiente <a href="http://127.0.0.1:5000/password/'
                     msg.html += str(res)+"/"+link +'">link </a>  sino fue usted ignore este mensaje<p>'
                     mail.send(msg)
+                    return render_template('login.html')
                     #Envio link
                 else:   
                     flash('Error el correo no esta registrado en la base de datos')
@@ -92,6 +93,8 @@ def add_password(iduser,link):
                         iduser=iduser
                         res=views.actclave(iduser,pws)
                         flash(res)
+                        flash('Clave asignada con éxito') 
+                        return render_template('login.html')
                     else: #diferente pws y conf
                         flash('La contraseña y su verificacion no coinciden')
                 else: #la verificacion no reune las caracteristicas
@@ -135,10 +138,9 @@ def act_producto(idproducto):
         if request.method=='GET':
             data=views.galeria(int(idproducto))
             jdata=json.loads(data)
-            print("Estoy aquí     "+jdata[0])
-
+            tamano=len(jdata)
             inst = producto() 
-            return render_template('Administrador.html',form=inst,contacto = jdata[0] )
+            return render_template('Administrador.html',form=inst,contacto = jdata, tam=tamano)
         else:
             print("Estoy entrando por POST     ")
             nomP = escape(request.form['nomPro'])
