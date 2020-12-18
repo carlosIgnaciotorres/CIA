@@ -33,7 +33,7 @@
           <div class="modal-footer justify-content-center">
             <span class="mr-4">{{ contacto[i][1] }}</span>
             <span class="mr-4">{{ contacto[i][2] }}</span>   
-              {{ form.actualizar(class="btn btn-outline-success btn-rounded btn-md ml-1")}}   
+              {{ form.actualizar(class="btn btn-outline-success btn-rounded btn-md ml-1", href="/actproducto/contacto[i][0]")}}   
               {% if  session['tipo'] =='Administrador' %}
               {{ form.borrar(class="btn btn-outline-danger btn-rounded btn-md ml-1")}}   
               {% endif %}

@@ -9,6 +9,7 @@ from db import db, views
 from werkzeug.utils import secure_filename
 import conexion
 import json
+from datetime import datetime
 
 
 
@@ -117,7 +118,8 @@ def reg_producto():
             refP = escape(request.form['refPro'])
             canP = escape(request.form['canPro'])
             imP = request.files['imPro']
-            filename = secure_filename(imP.filename)
+            fecha =  datetime.now()
+            filename = str(fecha)+secure_filename(imP.filename)
             imP.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             familia=1
             estado='A'
