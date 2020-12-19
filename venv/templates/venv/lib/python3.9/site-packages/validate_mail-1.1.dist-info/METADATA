@@ -1,0 +1,48 @@
+Metadata-Version: 2.1
+Name: validate-mail
+Version: 1.1
+Summary: Validating the e-mail ID passed
+Home-page: UNKNOWN
+Author: Maria Irudaya Regilan J
+Author-email: britsa.tech@gmail.com
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
+
+# Validate E-mail ID
+
+This project validates the e-mail ID passed.
+
+## Installation
+
+Run the following to install:
+
+```python
+pip install validate-mail
+```
+
+## Usage
+
+```python
+from validate_mail import validate_email
+
+valid_mail = abc@gmail.com
+invalid_mail = abc.@gmail.com
+
+# validate your mail ID
+print(validate_email(valid_mail)) # True
+
+print(validate_email(invalid_mail)) # False
+
+```
+
+MIT Licensed - 2020 Britsa - britsa.tech@gmail.com
+
+Contributors:
+Maria Irudaya Regilan J, Pavithra K, Ravi Shankar M
+

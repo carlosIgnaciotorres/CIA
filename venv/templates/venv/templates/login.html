@@ -1,0 +1,35 @@
+
+{% extends 'vista.html' %}
+{% block body %}
+
+<section class="page-section p-5">
+    <div class="container-fluid "  >
+        <div class="row">
+            <div class=" col-lg-6 col-md-6 text-center icono1">            
+                <i class="material-icons" style="font-size:200px;color:black">group</i>
+            </div>       
+            <div class="col-lg-4 col-md-6 bg-white p-5 form1">            
+                <form action="/admin" method="POST">
+                    <p class="text-muted mb-4">Ingresa tus datos de usuario</p>
+                    <div class="form-group mb-3">
+                        <input name="usuario" id="inputEmail" type="email" placeholder="Usuario" required="" autofocus="" class="form-control rounded-pill border-0 shadow-sm px-4 bg-light">
+                    </div>
+                    <div  class="form-group mb-3">
+                        <input name="password" id="campo" type="password" placeholder="Contraseña" required="" class="form-control rounded-pill border-0 shadow-sm px-4 bg-light">
+                    </div>
+                    <div class="custom-control custom-checkbox mb-3">
+                        <input id="" type="checkbox" checked class="custom-control-input">
+                        <label for="customCheck1" class="custom-control-label">Recordar contraseña</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">Ingresar</button>               
+                        
+                    <div class="text-center d-flex justify-content-between mt-4"><p>Olvidó su Contraseña? <a href="/recuperar" class="font-italic text-muted"> 
+                        <u>Haz click aquí</u></a></p>
+                    </div>
+                    <input type="hidden" id="buscar" name="buscar" value="">
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

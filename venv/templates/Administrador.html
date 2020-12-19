@@ -41,16 +41,22 @@
               {{ form.cerrar(class="btn btn-outline-warning btn-rounded btn-md ml-1")}}   
            
           </div>
-          </form> 
+          </form>
+         
         </div>
         <!--/.Content-->
       </div>
     </div>
-    <div class="mb-3">
+
+
+    <div class="card " style="width: 18rem; ">
+      <div class="card-body  text-center">
         <a><img class="img-fluid z-depth-1" src="{{ url_for('static',filename='imagenes/'+contacto[i][3]) }}" 
-        data-toggle="modal" data-target="#modal{{ i }}"></a>
-    </div>
-  </div>
+          data-toggle="modal" data-target="#modal{{ i }}"></a>        
+        <h5 class=" mt-3">{{ contacto[i][1] }}</h5>
+      </div>
+    </div>   
+  </div>  
   {% endfor %}
 </div>
 

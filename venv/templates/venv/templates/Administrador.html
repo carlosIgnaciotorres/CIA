@@ -1,0 +1,62 @@
+{% extends 'vista_adm.html' %}
+{% block body %}
+<!-- Grid row -->
+<div class="row">
+
+  <!-- Grid column -->
+  {% for i in range(tam) %}
+  <div class="col-lg-4 col-md-12 mb-4 d-flex justify-content-center">
+    <!--Modal: Name-->
+    <div class="modal fade " id="modal{{ i }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-md" role="document">
+        <!--Content-->
+        <div class="modal-content ">
+          <form action="/actproducto/{{ contacto[i][0] }}" method="POST" > 
+          <!--Body-->
+          <div class="modal-body mb-0 p-0 ">                                         
+            <div class="card-body">
+              <div class="mb-3 d-flex justify-content-center">
+                <img class="card-img-top" src="{{ url_for('static',filename='imagenes/'+contacto[i][3]) }}" alt="Card image" style="width:60%">
+              </div>
+                
+                  {% if  session['tipo'] =='Administrador' %}
+                  {{ form.nomPro(value=contacto[i][1], class="card-title form-control input-md") }}
+                  {{ form.refPro(value=contacto[i][2], class="card-title form-control input-md") }}
+                  {% else %}
+                  {{ form.nomPro(value=contacto[i][1], class="card-title form-control input-md", disabled=true) }}
+                  {{ form.refPro(value=contacto[i][2], class="card-title form-control input-md", disabled=true) }}
+                  {% endif %}
+                  {{ form.canPro(value=contacto[i][4], class="card-title form-control input-md") }}
+                         
+            </div>
+          </div>
+          <!--Footer-->
+          <div class="modal-footer justify-content-center">
+            <span class="mr-4">{{ contacto[i][1] }}</span>
+            <span class="mr-4">{{ contacto[i][2] }}</span>   
+              {{ form.actualizar(class="btn btn-outline-success btn-rounded btn-md ml-1")}}   
+              {% if  session['tipo'] =='Administrador' %}
+              <a href="/borrarproducto/{{ contacto[i][0] }}" class="btn btn-danger btn-eliminar">Borrar</a>
+              {% endif %}
+              {{ form.cerrar(class="btn btn-outline-warning btn-rounded btn-md ml-1")}}   
+           
+          </div>
+          </form> 
+        </div>
+        <!--/.Content-->
+      </div>
+    </div>
+    <div class="mb-3">
+        <a><img class="img-fluid z-depth-1" src="{{ url_for('static',filename='imagenes/'+contacto[i][3]) }}" 
+        data-toggle="modal" data-target="#modal{{ i }}"></a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+
+{% endblock %}
+
+
+
+

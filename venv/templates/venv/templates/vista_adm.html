@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda CIA</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/esq.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/estilospop.css') }}">
+</head>
+<body>
+    <div class="flex-container">
+        <div class="flex-item-left">
+            <aside class="sidenav">
+                <h3 class="ml-5 mt-5 text-white">{{ session['tipo'] }}</h3>
+                <p class="ml-5 text-white">{{ session['nombre'] }}</p>
+                <i class="ml-5 mt-5 material-icons" style="font-size:160px;color:white">group</i>
+            
+                <ul class="list-group">
+                  <li class="list-group-item p-0 m-0 bg-primary"><a href="/admin" class="ml-2">Inicio</a></li>
+                  {% if  session['tipo'] =='Administrador' %}
+                  <li class="list-group-item p-0 m-0 bg-primary"><a href="/rusuario" class="ml-2">Registro Usuarios</a></li>
+                  <li class="list-group-item p-0 m-0 bg-primary"><a href="/rproducto" class="ml-2">Registro Productos</a></li>
+                  {% endif %}
+                  <li class="list-group-item p-0 m-0 bg-primary"><a href="/" class="ml-2">Cerrar Sesión</a></li>      
+                </ul>  
+            </aside>
+        </div>
+
+        
+        <div class="flex-item-right">
+            <header class="bg-transparent">       
+                <div class="container ">                      
+                    <div class="d-flex justify-content-center mt-3 ">
+                    <div class="">
+                        <a><img src="{{ url_for('static',filename='img/logocia.png') }}" alt="logo-cia-tecnologia" width="250px" ></a>                
+                    </div>                    
+                    <div class="ml-5 align-self-center">
+                        <div class="ml-2 ">
+                        <h2 class="text-black">CIA - Control de Inventario de Accesorios</h2>
+                        <p class="text-black">Calle 50 N # 20-20 Armenia - Colombia</p>
+                    </div>
+                    </div>
+                </div>
+            </header>
+            <hr>
+            
+                <div class="container "> 
+                    <div class="d-flex justify-content-start ">
+                        <div class="BarraSup">
+                            <div class="input-group mb-4 border rounded-pill  mr-5 float-right" style="width:100%" >
+                                <div class="input-group-prepend border-0">
+                                    <button id="button-addon4" type="button" class="btn btn-link text-info"><i class="fa fa-search"></i></button>
+                                </div> 
+                                <div>       
+                                    <form method="POST" action="/admin">                                                             
+                                        <input id="buscar" name="buscar" type="search" placeholder="Buscar..." aria-describedby="button-addon4" class="form-control bg-none border-0">
+                                    </form> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>                    
+                </div> 
+
+                <div class="container">
+                    <div class="">
+
+                        {% block body %}
+
+                            
+                        {% endblock %}
+                    </div>
+                </div>     
+            <footer>
+                <div class="container">                    
+                    <div class="d-flex justify-content-center mt-5 p-5 "> 
+                        <span class="text-secondary">Copyright © 2020 - Todos los derechos reservados</span> 
+                    </div>                   
+                </div>                
+            </footer>
+        </div>        
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static',filename='js/ap.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/popup.js') }}"></script>
+    
+</body>
+</html>
