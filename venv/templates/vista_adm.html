@@ -6,86 +6,73 @@
     <title>Tienda CIA</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">    
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous"></head>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/esq.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/estilospop.css') }}">
 </head>
 <body>
-    <div class="flex-container">
-        <div class="flex-item-left">
-            <aside class="sidenav">
-                <h3 class="ml-5 mt-5 text-white">{{ session['tipo'] }}</h3>
-                <p class="ml-5 text-white">{{ session['nombre'] }}</p>
-                <i class="ml-5 mt-5 material-icons" style="font-size:160px;color:white">group</i>
-            
-                <ul class="list-group">
-                  <li class="list-group-item p-0 m-0 bg-primary"><a href="/admin" class="ml-2">Inicio</a></li>
-                  {% if  session['tipo'] =='Administrador' %}
-                  <li class="list-group-item p-0 m-0 bg-primary"><a href="/rusuario" class="ml-2">Registro Usuarios</a></li>
-                  <li class="list-group-item p-0 m-0 bg-primary"><a href="/rproducto" class="ml-2">Registro Productos</a></li>
-                  {% endif %}
-                  <li class="list-group-item p-0 m-0 bg-primary"><a href="/" class="ml-2">Cerrar Sesión</a></li>      
-                </ul>  
-            </aside>
-        </div>
-
-        
-        <div class="flex-item-right">
-            <header class="bg-transparent">       
-                <div class="container ">                      
-                    <div class="d-flex justify-content-center mt-3 ">
-                    <div class="">
-                        <a><img src="{{ url_for('static',filename='img/logocia.png') }}" alt="logo-cia-tecnologia" width="250px" ></a>                
-                    </div>                    
-                    <div class="ml-5 align-self-center">
-                        <div class="ml-2 ">
-                        <h2 class="text-black">CIA - Control de Inventario de Accesorios</h2>
-                        <p class="text-black">Calle 50 N # 20-20 Armenia - Colombia</p>
-                    </div>
-                    </div>
+    <div class="container-fluid">   
+        <div class="row justify-content-start">                 
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 sidenav ">
+                <div class="mt-5 text-center">
+                    <h2 class=" text-white">{{ session['tipo'] }}</h2>
+                    <p class=" text-white">{{ session['nombre'] }}</p>
+                    <i class=" mt-5 material-icons" style="font-size:160px;color:white">group</i>
                 </div>
-            </header>
-            <hr>
+                    <ul class="list-group">
+                        <li class="list-group-item p-0 m-0 bg-primary "><a href="/admin" class="fuente "><i class="fa fa-folder"></i><span class="ml-4">Inicio</span></a></li>
+                        {% if  session['tipo'] =='Administrador' %}
+                        <li class="list-group-item p-0 m-0 bg-primary"><a href="/rusuario" class="fuente"><i class="fas fa-user-plus "></i><span class="ml-3">Registro Usuarios</span></a></li>
+                        <li class="list-group-item p-0 m-0 bg-primary"><a href="/rproducto" class="fuente"><i class="fas fa-folder-plus"></i><span class="ml-4">Registro Productos</span></a></li>
+                        {% endif %}
+                        <li class="list-group-item p-0 m-0 bg-primary"><a href="/" class="fuente"><i class="fa fa-times-circle"></i><span class="ml-3">Cerrar Sesión</span></a></li>      
+                    </ul>
+            </div>
             
-                <div class="container "> 
-                    <div class="d-flex justify-content-start ">
-                        <div class="BarraSup">
-                            <div class="input-group mb-4 border rounded-pill  mr-5 float-right" style="width:100%" >
-                                <div class="input-group-prepend border-0">
-                                    <button id="button-addon4" type="button" class="btn btn-link text-info"><i class="fa fa-search"></i></button>
-                                </div> 
-                                <div>       
-                                    <form method="POST" action="/admin">                                                             
-                                        <input id="buscar" name="buscar" type="search" placeholder="Buscar..." aria-describedby="button-addon4" class="form-control bg-none border-0">
-                                    </form> 
-                                </div>
-                            </div>
-                        </div>
-                    </div>                    
-                </div> 
-
-                <div class="container">
+            <div class="col-xs-3 col-sm-3 col-md-9 col-lg-9 col-xl-9 ">
+                    <header class="bg-transparent mt-5 d-flex justify-content-center align-self-center"> 
+                            <div class="">
+                                <a><img src="{{ url_for('static',filename='img/logocia.png') }}" alt="logo-cia-tecnologia" width="200px" ></a>                
+                            </div>   
+                            <div class=" ml-5 mt-5">
+                                <h2 class="text-black">CIA - Control de Inventario de Accesorios</h2>
+                                <p class="text-black">Calle 50 N # 20-20 Armenia - Colombia</p>
+                            </div>   
+                    </header>
+                    <hr> 
+                    <div class="navbar navbar-light bg-light mb-5">
+                        <form class="form-inline">
+                         <input class="form-control mr-sm-3 " type="search" placeholder=" " aria-label="">
+                          <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Buscar</button>
+                        </form>
+                    </div>
+                                                                      
+                        <br>
+                       
                     <div class="">
+                         {% block body %}
 
-                        {% block body %}
-
-                            
+                                    
                         {% endblock %}
                     </div>
-                </div>     
-            <footer>
-                <div class="container">                    
-                    <div class="d-flex justify-content-center mt-5 p-5 "> 
-                        <span class="text-secondary">Copyright © 2020 - Todos los derechos reservados</span> 
-                    </div>                   
-                </div>                
-            </footer>
-        </div>        
+                            
+                    <footer>
+                        <div class="">                    
+                            <div class="d-flex justify-content-center mt-5 p-5"> 
+                                <span class="text-secondary">Copyright © 2020 - Todos los derechos reservados</span> 
+                            </div>                   
+                        </div>                
+                    </footer>
+            </div>
+        </div>
     </div>
+              
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="{{ url_for('static',filename='js/ap.js') }}"></script>
-    <script src="{{ url_for('static',filename='js/popup.js') }}"></script>
+    
     
 </body>
 </html>
