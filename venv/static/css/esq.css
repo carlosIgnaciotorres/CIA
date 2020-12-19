@@ -60,26 +60,45 @@ display: block;
 
 .sidenav a:hover {
 background-color: #ddd;
-color: #007bff;
+
 }
 
 .img {
 width: 100px;
 }
 
-.fuente {
-font-size:1.2vw;
-margin-left: 20px;
-}
+
 
 .fa  {
-font-size:25px;
+
 color:white;
 
 }
 
 .fas  {
-font-size:30px;
 color:white;
 }
 
+.nav-link{
+  font-size:1.3vw;
+  color: white;
+}
+
+@media only screen and (max-width:800px){
+
+  .navbar{
+    font-size: 2vw;
+  }
+
+  .nav-link{
+      font-size:4vw;
+      color: white;
+    }
+  
+  .log {
+      display: none;
+      width: auto; 
+      font-size: 10px;
+   }
+
+}

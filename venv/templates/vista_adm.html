@@ -12,25 +12,38 @@
 </head>
 <body>
     <div class="container-fluid">   
-        <div class="row justify-content-start">                 
-            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 sidenav ">
+        <div class="row justify-content-start">   
+            <div  class=" col-sm-12  col-lg-3  sidenav ">
+                
+            <div class="">
                 <div class="mt-5 text-center">
                     <h2 class=" text-white">{{ session['tipo'] }}</h2>
                     <p class=" text-white">{{ session['nombre'] }}</p>
                     <i class=" mt-5 material-icons" style="font-size:160px;color:white">group</i>
                 </div>
-                    <ul class="list-group">
-                        <li class="list-group-item p-0 m-0 bg-primary "><a href="/admin" class="fuente "><i class="fa fa-folder"></i><span class="ml-4">Inicio</span></a></li>
-                        {% if  session['tipo'] =='Administrador' %}
-                        <li class="list-group-item p-0 m-0 bg-primary"><a href="/rusuario" class="fuente"><i class="fas fa-user-plus "></i><span class="ml-3">Registro Usuarios</span></a></li>
-                        <li class="list-group-item p-0 m-0 bg-primary"><a href="/rproducto" class="fuente"><i class="fas fa-folder-plus"></i><span class="ml-4">Registro Productos</span></a></li>
-                        {% endif %}
-                        <li class="list-group-item p-0 m-0 bg-primary"><a href="/" class="fuente"><i class="fa fa-times-circle"></i><span class="ml-3">Cerrar Sesión</span></a></li>      
-                    </ul>
+                 
+                
+                <nav class="navbar  navbar-md  navbar-expand-md navbar-dark ">
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+                            aria-controls='navbarTogglerDemo01' aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler "><i class="fa fa-bars " ></i></span>                    
+                    </button>                    
+                    <a class="navbar-brand d-lg-none" href="#">CIA - Control de Inventario</a>
+                    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                        <div class="navbar-nav w-100 flex-column ">
+                            <a class="nav-item nav-link " href="/admin" ><i class="fa fa-folder"></i><span class="ml-4 ">Inicio</span></a>
+                            {% if  session['tipo'] =='Administrador' %}
+                            <a class="nav-item nav-link " href="/rusuario" ><i class="fas fa-user-plus "></i><span class="ml-3">Registro Usuario</span></a>
+                            <a class="nav-item nav-link " href="/rproducto" ><i class="fas fa-folder-plus"></i><span class="ml-4">Registro Producto</span></a>
+                            {% endif %}
+                            <a class="nav-item nav-link " href="/" ><i class="fa fa-times-circle"></i><span class="ml-3">Cerrar Sesión</a>
+                        </div>
+                    </div>
+                </nav> 
+                </div>
             </div>
-            
-            <div class="col-xs-3 col-sm-3 col-md-9 col-lg-9 col-xl-9 ">
-                    <header class="bg-transparent mt-5 d-flex justify-content-center align-self-center"> 
+            <div class=" col-sm-12 col-lg-9">
+                    <header class="bg-transparent mt-5 d-flex justify-content-center align-self-center log"> 
                             <div class="">
                                 <a><img src="{{ url_for('static',filename='img/logocia.png') }}" alt="logo-cia-tecnologia" width="200px" ></a>                
                             </div>   
@@ -45,10 +58,8 @@
                          <input class="form-control mr-sm-3 " type="search" placeholder=" " aria-label="">
                           <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Buscar</button>
                         </form>
-                    </div>
-                                                                      
-                        <br>
-                       
+                    </div>                                                                      
+                        <br>                       
                     <div class="">
                          {% block body %}
 
@@ -67,7 +78,7 @@
         </div>
     </div>
               
-    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
