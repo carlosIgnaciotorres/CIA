@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*- 
 import sqlite3
 import base64
+import os
 
+BASE_DIR =  os.path.abspath(os.path.dirname(__file__))
+DB_URI =  os.path.join(BASE_DIR, "cia.db")
 # El \ se conoce como caracter de escape, se usa para construir códigos especiales
 # \n, \t, C:\sqlite3\db\c03.db  ==> \s    \d     \c
 # \\  ==> C:\sqlite3\db\c03.db
@@ -10,7 +13,7 @@ import base64
 def ejecutar_consulta_sel(sql,datos=None):
     try:
         #print(f"{sql} - {datos}")
-        with sqlite3.connect('cia.db') as con:
+        with sqlite3.connect(DB_URI) as con:
             cur = con.cursor()                  # Crea un cursor (un lugar para almacenar los resultados de la consulta)
             if datos!=None:
                 sal = cur.execute(sql,datos)
@@ -25,7 +28,7 @@ def ejecutar_consulta_sel(sql,datos=None):
 def ejecutar_consulta_acc(sql,datos=None):
     #try:
         print(f'sql:{sql} - {datos}')
-        with sqlite3.connect('cia.db') as con:
+        with sqlite3.connect(DB_URI) as con:
             cur = con.cursor()                  # Crea un cursor (un lugar para almacenar los resultados de la consulta)
             if datos!=None:
                 sal = cur.execute(sql,datos)
