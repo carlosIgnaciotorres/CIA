@@ -11,12 +11,14 @@ body {
   box-sizing: border-box;
 }
 
-
 header {
   
   height: 30vh;
-  background: #007bff;
-  
+  background: #007bff; 
+}
+
+.log {
+  font-size: 80vw;
 }
 
 .logo {
@@ -63,11 +65,11 @@ background-color: #ddd;
 
 }
 
+
+
 .img {
 width: 100px;
 }
-
-
 
 .fa  {
 
@@ -80,25 +82,32 @@ color:white;
 }
 
 .nav-link{
-  font-size:1.3vw;
+  font-size: 20px;
   color: white;
 }
 
-@media only screen and (max-width:800px){
+.log {
+  font-size: 25px;
+}
+@media only screen and (max-width:375px){
 
   .navbar{
-    font-size: 2vw;
+    
+    text-align:center;
   }
-
+ 
   .nav-link{
-      font-size:4vw;
+      font-size: 20px;
       color: white;
+      text-align: center;      
     }
   
-  .log {
-      display: none;
-      width: auto; 
-      font-size: 10px;
+  .log1 {
+      
+      display: none;    
    }
+
+  
+   
 
 }
