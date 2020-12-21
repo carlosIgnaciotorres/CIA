@@ -127,6 +127,9 @@ def reg_producto():
             estado='A'
             if int(canP)>=0:
                 sal= views.crearproducto(nomP,refP,canP,filename)
+                idpro=views.ultimoprod()
+                userid=session['usr_id']
+                hist=views.crearhistorico(idpro,userid,0,canP)
             else:
                 sal="Cantidad invalida"
             flash(sal)
@@ -170,17 +173,14 @@ def act_producto(idproducto):
                 nomP = escape(request.form['nomPro'])
                 refP = escape(request.form['refPro'])
             canP = escape(request.form['canPro'])
-            # imP = request.files['imPro']
-            # filename = secure_filename(imP.filename)
-            # imP.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            familia=1
-            estado='A'
-            idpro = 3 
+            cantAnt=views.cantidadprod(idproducto)
             if int(canP)>=0:
                 if session['tipo'] =="Administrador": 
                     sal=views.actualizarproducto(int(idproducto),nomP,refP,canP)
                 else:
                     sal=views.actualizarcantidad(int(idproducto),canP)
+                userid=session['usr_id']
+                hist=views.crearhistorico(idproducto,userid,cantAnt,canP)
             else:
                 sal="Cantidad invalida"
             flash(sal)

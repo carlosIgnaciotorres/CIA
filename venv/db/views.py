@@ -233,3 +233,38 @@ def actualizarcantidad(idproducto, cantidad):
     else:
         sal = 'Error al registrar los datos'
     return sal
+
+@db.route('/crearhistorico/<string:idpro>/<int:iduser>/<int:cantidadant>/<string:cantidadnueva>')
+def crearhistorico(idpro,iduser,cantidadant,cantidadnueva):
+    
+    query = "INSERT INTO historico (producto, usuario, cantidadant, cantidadnueva, Fecha ) VALUES (?,?,?,?,? );"
+    res = CON.ejecutar_consulta_acc(query,(idpro, iduser, cantidadant, cantidadnueva, datetime.now()))
+    if res!=None:
+        sal = 'Datos registrados con éxito'
+    else:
+        sal = 'Error al registrar los datos'
+    return sal
+
+@db.route('/cantidadprod/<int:idproducto>')
+def cantidadprod(idproducto):
+    ans=0
+    query = "SELECT  cantidad FROM producto  WHERE id="+str(idproducto)
+    res = CON.ejecutar_consulta_sel(query,None)
+    print(res)
+    if res==None or len(res)==0:
+        ans = 0
+    else:
+        ans=res[0][0]
+    return str(ans) 
+
+@db.route('/ultimoprod/')
+def ultimoprod():
+    ans=0
+    query = "SELECT  max(id) FROM producto "
+    res = CON.ejecutar_consulta_sel(query,None)
+    print(res)
+    if res==None or len(res)==0:
+        ans = 0
+    else:
+        ans=res[0][0]
+    return str(ans) 
